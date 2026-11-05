@@ -6,6 +6,10 @@ loading it into a MySQL reporting database later.
 It is for analysis only. It does not connect to a database, website or API. The finished app is **one file**,
 `dist/index.html`, which you open straight from disk.
 
+**Hosted copy:** https://ms606.github.io/order-journey-analyzer/ is rebuilt from `main` on every push by
+`.github/workflows/deploy.yml`. It is the same single file with the same Content Security Policy, so a CSV you open there
+is read in your browser and never uploaded.
+
 ## Privacy
 
 The order export contains real customer data, so the app is built around these rules:
