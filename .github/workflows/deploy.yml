@@ -29,6 +29,9 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+        env:
+          # Hidden on the hosted copy for now. Remove to show all tabs again.
+          VITE_HIDDEN_TABS: sources,decisions
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

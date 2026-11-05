@@ -31,7 +31,7 @@ import { SourcesDevicesScreen } from './screens/SourcesDevices';
 
 type TabId = 'check' | 'overview' | 'entry' | 'newrepeat' | 'sources' | 'decisions';
 
-const TABS: readonly TabDef<TabId>[] = [
+const ALL_TABS: readonly TabDef<TabId>[] = [
   { id: 'check', label: 'Data check' },
   { id: 'overview', label: 'Overview' },
   { id: 'entry', label: 'Entry points' },
@@ -39,6 +39,13 @@ const TABS: readonly TabDef<TabId>[] = [
   { id: 'sources', label: 'Sources and devices' },
   { id: 'decisions', label: 'Decisions' },
 ];
+
+/**
+ * Tab ids left out of this build, comma-separated, e.g. VITE_HIDDEN_TABS=sources,decisions.
+ * Set only by the GitHub Pages workflow. Data check is the start screen, so it is never hidden.
+ */
+const HIDDEN_TABS = new Set((import.meta.env.VITE_HIDDEN_TABS ?? '').split(',').map((id) => id.trim()));
+const TABS = ALL_TABS.filter((t) => t.id === 'check' || !HIDDEN_TABS.has(t.id));
 
 /** Tabs where the global filters apply. */
 const FILTERED_TABS: ReadonlySet<TabId> = new Set(['overview', 'entry', 'newrepeat', 'sources']);
