@@ -1,0 +1,643 @@
+order_ref,buyer_email,placed_at,line_total,order_total,product_name
+10093,customer011@example.com,2024-12-30 07:32:31,59.00,63.95,Moonstone Ring
+10092,customer251@example.com,2024-12-30 02:54:26,59.00,107.35,Moonstone Ring
+10092,customer251@example.com,2024-12-30 02:54:21,24.50,107.35,Tiger's Eye Bracelet
+10092,customer251@example.com,2024-12-30 02:54:29,18.90,107.35,clear-quartz-point
+10091,customer012@example.com,2024-12-29 23:47:41,49.00,84.85,amethyst-cluster
+10091,customer012@example.com,2024-12-29 23:47:00,12.00,84.85,Rose Quartz Tumble
+10091,customer012@example.com,2024-12-29 23:47:50,18.90,84.85,Clear Quartz Point
+10090,customer308@example.com,2024-12-28 13:33:42,65.00,69.95,citrine-geode
+10089,customer041@example.com,2024-12-27 17:37:41,15.00,19.95,Black Tourmaline
+10087,customer197@example.com,2024-12-26 01:03:07,15.00,19.95,black-tourmaline
+10085,customer221@example.com,2024-12-24 09:04:34,65.00,69.95,citrine-geode
+10084,customer323@example.com,2024-12-22 20:07:49,12.00,54.95,rose-quartz-tumble
+10084,customer323@example.com,2024-12-22 20:07:43,38.00,54.95,Smoky Quartz Tower
+10083,customer025@example.com,2024-12-21 02:11:44,18.90,61.85,Clear Quartz Point
+10083,customer025@example.com,2024-12-21 02:11:33,38.00,61.85,smoky-quartz-tower
+10081,customer048@example.com,2024-12-18 21:57:49,11.00,30.95,Selenite Wand
+10081,customer048@example.com,2024-12-18 21:57:11,15.00,30.95,Black Tourmaline
+10079,customer155@example.com,2024-12-15 14:30:23,12.00,27.95,rose-quartz-tumble
+10079,customer155@example.com,2024-12-15 14:30:50,11.00,27.95,selenite-wand
+,customer148@example.com,2024-12-13 05:55:04,38.00,42.95,Smoky Quartz Tower
+10076,customer220@example.com,2024-12-12 03:35:47,65.00,84.95,Citrine Geode
+10076,customer220@example.com,2024-12-12 03:35:19,15.00,84.95,black-tourmaline
+10074,customer030@example.com,2024-12-11 19:35:44,65.00,118.95,Citrine Geode
+10074,customer030@example.com,2024-12-11 19:35:01,49.00,118.95,Amethyst Cluster
+10073,customer121@example.com,2024-12-10 19:57:31,24.50,29.45,Tiger's Eye Bracelet
+10072,customer330@example.com,2024-12-10 11:12:21,65.00,69.95,citrine-geode
+10071,customer137@example.com,2024-12-09 16:41:39,31.00,60.45,Crème Calcite Sphere
+10071,customer137@example.com,2024-12-09 16:41:13,24.50,60.45,Tiger's Eye Bracelet
+,customer073@example.com,2024-12-09 14:12:39,38.00,42.95,smoky-quartz-tower
+10068,customer318@example.com,2024-12-05 11:18:25,22.00,26.95,Labradorite Palm Stone
+10067,customer010@example.com,2024-12-03 03:08:50,12.00,16.95,rose-quartz-tumble
+10066,customer297@example.com,2024-11-30 15:07:06,38.00,42.95,Smoky Quartz Tower
+10064,customer179@example.com,2024-11-28 07:55:45,24.50,29.45,tigers-eye-bracelet
+,customer146@example.com,2024-11-24 07:20:06,22.00,45.85,labradorite-palm-stone
+,customer146@example.com,2024-11-24 07:20:45,18.90,45.85,Clear Quartz Point
+10062,customer175@example.com,2024-11-21 18:23:01,11.00,30.95,Selenite Wand
+10062,customer175@example.com,2024-11-21 18:23:21,15.00,30.95,Black Tourmaline
+,customer234@example.com,2024-11-18 11:26:29,22.00,26.95,Labradorite Palm Stone
+,customer163@example.com,2024-11-11 02:37:25,65.00,69.95,citrine-geode
+10058,customer009@example.com,2024-11-10 00:23:48,31.00,65.85,Crème Calcite Sphere
+10058,customer009@example.com,2024-11-10 00:23:04,11.00,65.85,selenite-wand
+10058,customer009@example.com,2024-11-10 00:23:42,18.90,65.85,Clear Quartz Point
+10057,customer038@example.com,2024-11-07 21:09:03,15.00,19.95,black-tourmaline
+10056,customer053@example.com,2024-11-02 12:16:37,12.00,16.95,Rose Quartz Tumble
+100777,duplicate.two@example.com,2024-11-02 09:05:05,12.00,16.95,rose-quartz-tumble
+100777,duplicate.one@example.com,2024-11-02 09:00:45,24.50,41.45,Tiger's Eye Bracelet
+100777,duplicate.one@example.com,2024-11-02 09:00:00,12.00,41.45,rose-quartz-tumble
+10055,customer003@example.com,2024-11-02 07:13:17,38.00,101.95,Smoky Quartz Tower
+10055,customer003@example.com,2024-11-02 07:13:16,59.00,101.95,Moonstone Ring
+10054,customer049@example.com,2024-10-31 14:33:35,38.00,64.95,Smoky Quartz Tower
+10054,customer049@example.com,2024-10-31 14:33:10,22.00,64.95,labradorite-palm-stone
+,customer004@example.com,2024-10-29 16:09:49,18.90,54.85,clear-quartz-point
+,customer004@example.com,2024-10-29 16:09:15,31.00,54.85,creme-calcite-sphere
+10052,customer053@example.com,2024-10-29 15:55:50,11.00,80.95,selenite-wand
+10052,customer053@example.com,2024-10-29 15:55:50,65.00,80.95,Citrine Geode
+10051,customer040@example.com,2024-10-25 01:35:05,49.00,53.95,Amethyst Cluster
+10050,customer123@example.com,2024-10-21 13:03:11,18.90,72.85,Clear Quartz Point
+10050,customer123@example.com,2024-10-21 13:03:10,49.00,72.85,amethyst-cluster
+10049,customer131@example.com,2024-10-20 12:40:35,31.00,54.85,creme-calcite-sphere
+10049,customer131@example.com,2024-10-20 12:40:49,18.90,54.85,clear-quartz-point
+10048,customer057@example.com,2024-10-19 16:12:02,59.00,63.95,moonstone-ring
+10047,customer324@example.com,2024-10-18 00:19:11,12.00,31.95,rose-quartz-tumble
+10047,customer324@example.com,2024-10-18 00:19:36,15.00,31.95,Black Tourmaline
+10046,customer062@example.com,2024-10-15 07:09:36,12.00,16.95,Rose Quartz Tumble
+10045,customer120@example.com,2024-10-14 08:16:01,65.00,69.95,Citrine Geode
+10044,customer153@example.com,2024-10-14 02:57:33,38.00,73.95,smoky-quartz-tower
+10044,customer153@example.com,2024-10-14 02:57:45,31.00,73.95,creme-calcite-sphere
+10043,customer117@example.com,2024-10-13 00:10:48,59.00,75.95,moonstone-ring
+10043,customer117@example.com,2024-10-13 00:10:05,12.00,75.95,rose-quartz-tumble
+10042,customer116@example.com,2024-10-11 17:58:16,59.00,63.95,Moonstone Ring
+10041,customer212@example.com,2024-10-11 11:58:16,38.00,101.95,smoky-quartz-tower
+10041,customer212@example.com,2024-10-11 11:58:24,59.00,101.95,moonstone-ring
+10039,customer285@example.com,2024-10-09 16:17:09,65.00,69.95,Citrine Geode
+10038,many.pages@example.com,2024-10-03 21:00:11,15.00,19.95,Black Tourmaline
+10037,customer046@example.com,2024-10-02 05:08:33,18.90,23.85,Clear Quartz Point
+10036,customer035@example.com,2024-09-26 10:10:44,15.00,19.95,Black Tourmaline
+10035,customer247@example.com,2024-09-25 20:52:15,38.00,112.95,Smoky Quartz Tower
+10035,customer247@example.com,2024-09-25 20:52:31,11.00,112.95,selenite-wand
+10035,customer247@example.com,2024-09-25 20:52:37,59.00,112.95,moonstone-ring
+10034,customer028@example.com,2024-09-24 03:33:43,15.00,50.95,black-tourmaline
+10034,customer028@example.com,2024-09-24 03:33:10,31.00,50.95,creme-calcite-sphere
+10033,customer206@example.com,2024-09-23 21:10:16,38.00,42.95,smoky-quartz-tower
+10032,customer238@example.com,2024-09-21 23:04:18,49.00,53.95,Amethyst Cluster
+10031,customer251@example.com,2024-09-17 00:38:16,12.00,41.45,rose-quartz-tumble
+10031,customer251@example.com,2024-09-17 00:38:22,24.50,41.45,tigers-eye-bracelet
+10030,customer209@example.com,2024-09-12 22:34:15,18.90,61.85,Clear Quartz Point
+10030,customer209@example.com,2024-09-12 22:34:07,38.00,61.85,Smoky Quartz Tower
+,same.minute@example.com,2024-09-12 13:37:29,15.00,30.00,black-tourmaline
+,same.minute@example.com,2024-09-12 13:37:38,15.00,30.00,black-tourmaline
+,same.minute@example.com,2024-09-12 13:37:35,38.00,30.00,smoky-quartz-tower
+10029,customer134@example.com,2024-09-09 14:31:23,12.00,16.95,Rose Quartz Tumble
+10028,customer081@example.com,2024-09-08 18:38:44,38.00,101.95,Smoky Quartz Tower
+10028,customer081@example.com,2024-09-08 18:38:50,59.00,101.95,Moonstone Ring
+10027,customer160@example.com,2024-09-08 13:44:17,12.00,16.95,Rose Quartz Tumble
+10026,customer277@example.com,2024-09-08 03:10:24,24.50,29.45,tigers-eye-bracelet
+10025,customer043@example.com,2024-09-07 16:52:16,18.90,45.85,clear-quartz-point
+10025,customer043@example.com,2024-09-07 16:52:42,22.00,45.85,Labradorite Palm Stone
+10024,customer087@example.com,2024-09-05 09:25:21,49.00,53.95,amethyst-cluster
+10023,customer007@example.com,2024-09-04 20:57:36,11.00,53.95,Selenite Wand
+10023,customer007@example.com,2024-09-04 20:57:41,38.00,53.95,Smoky Quartz Tower
+10021,customer018@example.com,2024-09-02 13:09:28,12.00,94.85,rose-quartz-tumble
+10021,customer018@example.com,2024-09-02 13:09:26,18.90,94.85,clear-quartz-point
+10021,customer018@example.com,2024-09-02 13:09:31,59.00,94.85,moonstone-ring
+,customer174@example.com,2024-09-02 12:09:48,38.00,42.95,smoky-quartz-tower
+10019,customer283@example.com,2024-09-01 10:26:11,38.00,42.95,Smoky Quartz Tower
+10017,customer321@example.com,2024-08-30 22:17:20,11.00,15.95,Selenite Wand
+,customer316@example.com,2024-08-25 00:29:49,59.00,63.95,Moonstone Ring
+10015,customer116@example.com,2024-08-22 16:26:06,18.90,54.85,clear-quartz-point
+10015,customer116@example.com,2024-08-22 16:26:29,31.00,54.85,Crème Calcite Sphere
+10014,customer071@example.com,2024-08-20 00:09:17,49.00,64.95,Amethyst Cluster
+10014,customer071@example.com,2024-08-20 00:09:23,11.00,64.95,selenite-wand
+10013,customer005@example.com,2024-08-19 21:10:05,65.00,128.95,Citrine Geode
+10013,customer005@example.com,2024-08-19 21:10:25,59.00,128.95,moonstone-ring
+,customer037@example.com,2024-08-18 00:42:24,31.00,84.95,creme-calcite-sphere
+,customer037@example.com,2024-08-18 00:42:34,49.00,84.95,Amethyst Cluster
+,customer042@example.com,2024-08-16 00:25:45,49.00,112.95,Amethyst Cluster
+,customer042@example.com,2024-08-16 00:25:38,59.00,112.95,moonstone-ring
+10010,customer202@example.com,2024-08-14 12:12:02,15.00,19.95,Black Tourmaline
+10009,customer010@example.com,2024-08-13 02:47:13,59.00,63.95,moonstone-ring
+10008,customer107@example.com,2024-08-11 06:24:02,11.00,52.45,selenite-wand
+10008,customer107@example.com,2024-08-11 06:24:25,12.00,52.45,rose-quartz-tumble
+10008,customer107@example.com,2024-08-11 06:24:01,24.50,52.45,tigers-eye-bracelet
+,customer219@example.com,2024-08-06 03:57:08,18.90,38.85,clear-quartz-point
+,customer219@example.com,2024-08-06 03:57:36,15.00,38.85,black-tourmaline
+10006,customer334@example.com,2024-08-04 15:39:31,31.00,35.95,creme-calcite-sphere
+10005,customer203@example.com,2024-08-03 11:48:40,59.00,63.95,Moonstone Ring
+10004,customer266@example.com,2024-08-02 15:02:20,18.90,45.85,Clear Quartz Point
+10004,customer266@example.com,2024-08-02 15:02:21,22.00,45.85,labradorite-palm-stone
+10001,customer296@example.com,2024-07-25 17:25:15,24.50,67.45,tigers-eye-bracelet
+10001,customer296@example.com,2024-07-25 17:25:37,38.00,67.45,Smoky Quartz Tower
+9999,customer020@example.com,2024-07-23 15:27:05,18.90,23.85,Clear Quartz Point
+9998,customer030@example.com,2024-07-22 00:48:24,49.00,53.95,Amethyst Cluster
+9997,customer170@example.com,2024-07-18 14:51:10,59.00,63.95,Moonstone Ring
+9994,partial.refund@example.com,2024-07-09 10:10:08,59.00,89.00,Moonstone Ring
+9993,customer013@example.com,2024-07-09 01:59:07,15.00,41.95,black-tourmaline
+9993,customer013@example.com,2024-07-09 01:59:23,22.00,41.95,Labradorite Palm Stone
+9992,full.refund@example.com,2024-07-07 17:00:43,31.00,64.90,creme-calcite-sphere
+9990,customer165@example.com,2024-07-05 18:48:13,18.90,54.85,Clear Quartz Point
+9990,customer165@example.com,2024-07-05 18:48:38,31.00,54.85,creme-calcite-sphere
+,customer050@example.com,2024-07-05 07:29:35,12.00,16.95,rose-quartz-tumble
+9988,customer327@example.com,2024-07-03 07:01:41,18.90,88.85,clear-quartz-point
+9988,customer327@example.com,2024-07-03 07:01:37,65.00,88.85,Citrine Geode
+9987,customer034@example.com,2024-07-02 23:56:12,24.50,29.45,Tiger's Eye Bracelet
+9986,customer101@example.com,2024-07-01 01:50:30,49.00,68.95,amethyst-cluster
+9986,customer101@example.com,2024-07-01 01:50:13,15.00,68.95,Black Tourmaline
+9985,customer318@example.com,2024-06-29 23:10:39,22.00,26.95,labradorite-palm-stone
+9984,customer095@example.com,2024-06-29 04:22:29,49.00,72.85,Amethyst Cluster
+9984,customer095@example.com,2024-06-29 04:22:48,18.90,72.85,clear-quartz-point
+9983,customer211@example.com,2024-06-28 22:07:15,31.00,69.95,Crème Calcite Sphere
+9983,customer211@example.com,2024-06-28 22:07:27,12.00,69.95,rose-quartz-tumble
+9983,customer211@example.com,2024-06-28 22:07:20,22.00,69.95,Labradorite Palm Stone
+9982,customer013@example.com,2024-06-28 20:17:42,38.00,67.45,smoky-quartz-tower
+9982,customer013@example.com,2024-06-28 20:17:37,24.50,67.45,tigers-eye-bracelet
+9981,customer244@example.com,2024-06-28 01:17:25,31.00,105.95,Crème Calcite Sphere
+9981,customer244@example.com,2024-06-28 01:17:21,59.00,105.95,moonstone-ring
+9981,customer244@example.com,2024-06-28 01:17:11,11.00,105.95,selenite-wand
+9980,customer333@example.com,2024-06-24 04:17:01,22.00,57.95,labradorite-palm-stone
+9980,customer333@example.com,2024-06-24 04:17:39,31.00,57.95,Crème Calcite Sphere
+9979,customer186@example.com,2024-06-23 15:11:10,49.00,53.95,Amethyst Cluster
+9978,customer015@example.com,2024-06-22 06:43:30,15.00,19.95,Black Tourmaline
+9977,customer053@example.com,2024-06-21 23:51:23,65.00,69.95,Citrine Geode
+9976,customer006@example.com,2024-06-19 13:46:36,15.00,44.45,black-tourmaline
+9976,customer006@example.com,2024-06-19 13:46:35,24.50,44.45,tigers-eye-bracelet
+9975,differing.values@example.com,2024-06-18 09:45:01,22.00,26.95,labradorite-palm-stone
+9974,customer057@example.com,2024-06-17 12:07:20,49.00,72.85,amethyst-cluster
+9974,customer057@example.com,2024-06-17 12:07:03,18.90,72.85,clear-quartz-point
+9973,customer055@example.com,2024-06-15 03:39:46,59.00,63.95,moonstone-ring
+,customer277@example.com,2024-06-12 17:38:13,49.00,65.95,amethyst-cluster
+,customer277@example.com,2024-06-12 17:38:15,12.00,65.95,Rose Quartz Tumble
+9971,customer041@example.com,2024-06-10 22:38:03,24.50,29.45,tigers-eye-bracelet
+,customer029@example.com,2024-06-10 13:28:35,22.00,26.95,labradorite-palm-stone
+,customer076@example.com,2024-06-08 01:31:22,11.00,15.95,selenite-wand
+9968,customer158@example.com,2024-06-07 13:01:40,11.00,80.95,selenite-wand
+9968,customer158@example.com,2024-06-07 13:01:09,65.00,80.95,citrine-geode
+,customer236@example.com,2024-06-06 18:25:33,59.00,88.45,moonstone-ring
+,customer236@example.com,2024-06-06 18:25:14,24.50,88.45,Tiger's Eye Bracelet
+9965,customer274@example.com,2024-06-04 21:05:03,65.00,107.95,citrine-geode
+9965,customer274@example.com,2024-06-04 21:05:05,38.00,107.95,smoky-quartz-tower
+,customer053@example.com,2024-06-02 20:38:36,31.00,35.95,Crème Calcite Sphere
+9963,customer023@example.com,2024-06-01 22:28:28,18.90,23.85,clear-quartz-point
+,customer324@example.com,2024-05-31 12:38:23,38.00,42.95,smoky-quartz-tower
+,customer332@example.com,2024-05-29 22:43:24,31.00,35.95,Crème Calcite Sphere
+9960,customer007@example.com,2024-05-29 21:22:41,49.00,112.95,amethyst-cluster
+9960,customer007@example.com,2024-05-29 21:22:07,59.00,112.95,moonstone-ring
+9959,customer218@example.com,2024-05-28 10:17:10,38.00,42.95,Smoky Quartz Tower
+9958,customer284@example.com,2024-05-25 19:24:08,31.00,50.95,creme-calcite-sphere
+9958,customer284@example.com,2024-05-25 19:24:37,15.00,50.95,Black Tourmaline
+9954,customer108@example.com,2024-05-21 08:23:41,24.50,48.35,tigers-eye-bracelet
+9954,customer108@example.com,2024-05-21 08:23:38,18.90,48.35,clear-quartz-point
+9953,customer030@example.com,2024-05-20 00:42:46,22.00,26.95,Labradorite Palm Stone
+9952,customer051@example.com,2024-05-19 15:14:50,15.00,19.95,Black Tourmaline
+9951,customer047@example.com,2024-05-18 19:20:00,11.00,37.95,Selenite Wand
+9951,customer047@example.com,2024-05-18 19:20:41,22.00,37.95,Labradorite Palm Stone
+9950,customer227@example.com,2024-05-16 17:40:47,49.00,53.95,Amethyst Cluster
+,customer052@example.com,2024-05-16 02:23:11,49.00,64.95,Amethyst Cluster
+,customer052@example.com,2024-05-16 02:23:21,11.00,64.95,selenite-wand
+9947,customer113@example.com,2024-05-14 17:27:02,49.00,53.95,Amethyst Cluster
+9945,customer020@example.com,2024-05-14 00:50:14,38.00,42.95,smoky-quartz-tower
+9944,customer218@example.com,2024-05-13 21:35:00,18.90,45.85,clear-quartz-point
+9944,customer218@example.com,2024-05-13 21:35:18,22.00,45.85,Labradorite Palm Stone
+9943,long.gap@example.com,2024-05-10 12:00:18,31.00,35.95,Crème Calcite Sphere
+9942,customer205@example.com,2024-05-10 00:18:43,65.00,84.95,Citrine Geode
+9942,customer205@example.com,2024-05-10 00:18:27,15.00,84.95,Black Tourmaline
+9941,customer020@example.com,2024-05-06 16:01:34,12.00,16.95,Rose Quartz Tumble
+9940,customer093@example.com,2024-05-05 20:59:06,24.50,29.45,tigers-eye-bracelet
+,customer012@example.com,2024-05-05 18:49:17,31.00,35.95,Crème Calcite Sphere
+9938,customer029@example.com,2024-05-04 11:50:12,38.00,138.95,Smoky Quartz Tower
+9938,customer029@example.com,2024-05-04 11:50:04,65.00,138.95,Citrine Geode
+9938,customer029@example.com,2024-05-04 11:50:39,31.00,138.95,Crème Calcite Sphere
+9936,customer234@example.com,2024-05-02 09:27:39,22.00,91.95,labradorite-palm-stone
+9936,customer234@example.com,2024-05-02 09:27:04,65.00,91.95,citrine-geode
+9935,customer043@example.com,2024-05-02 02:54:09,31.00,72.45,creme-calcite-sphere
+9935,customer043@example.com,2024-05-02 02:54:42,24.50,72.45,Tiger's Eye Bracelet
+9935,customer043@example.com,2024-05-02 02:54:12,12.00,72.45,Rose Quartz Tumble
+9934,customer217@example.com,2024-04-29 16:13:29,59.00,101.95,Moonstone Ring
+9934,customer217@example.com,2024-04-29 16:13:12,38.00,101.95,Smoky Quartz Tower
+9933,customer244@example.com,2024-04-29 08:20:20,22.00,26.95,labradorite-palm-stone
+9931,customer206@example.com,2024-04-26 18:21:20,31.00,50.95,creme-calcite-sphere
+9931,customer206@example.com,2024-04-26 18:21:08,15.00,50.95,black-tourmaline
+9930,customer094@example.com,2024-04-24 17:21:35,11.00,15.95,Selenite Wand
+9929,customer254@example.com,2024-04-23 13:10:39,65.00,69.95,citrine-geode
+9928,customer099@example.com,2024-04-22 19:36:27,12.00,16.95,Rose Quartz Tumble
+9926,customer157@example.com,2024-04-22 08:42:19,24.50,60.45,tigers-eye-bracelet
+9926,customer157@example.com,2024-04-22 08:42:06,31.00,60.45,Crème Calcite Sphere
+9925,customer245@example.com,2024-04-22 03:59:17,59.00,101.95,moonstone-ring
+9925,customer245@example.com,2024-04-22 03:59:00,38.00,101.95,smoky-quartz-tower
+9924,customer284@example.com,2024-04-21 18:02:43,22.00,26.95,labradorite-palm-stone
+9923,customer015@example.com,2024-04-18 12:35:35,49.00,53.95,Amethyst Cluster
+9922,customer267@example.com,2024-04-17 04:02:41,65.00,69.95,citrine-geode
+9920,customer225@example.com,2024-04-16 18:55:42,31.00,35.95,Crème Calcite Sphere
+9919,customer089@example.com,2024-04-14 07:36:31,24.50,29.45,tigers-eye-bracelet
+9918,customer215@example.com,2024-04-13 19:59:41,65.00,107.95,citrine-geode
+9918,customer215@example.com,2024-04-13 19:59:06,38.00,107.95,smoky-quartz-tower
+9917,customer067@example.com,2024-04-12 14:38:40,31.00,35.95,Crème Calcite Sphere
+9916,customer189@example.com,2024-04-10 21:17:47,11.00,74.95,selenite-wand
+9916,customer189@example.com,2024-04-10 21:17:15,59.00,74.95,Moonstone Ring
+9914,customer302@example.com,2024-04-09 08:02:49,38.00,73.95,smoky-quartz-tower
+9914,customer302@example.com,2024-04-09 08:02:17,31.00,73.95,creme-calcite-sphere
+9913,customer314@example.com,2024-04-08 00:19:04,31.00,69.85,creme-calcite-sphere
+9913,customer314@example.com,2024-04-08 00:19:24,18.90,69.85,Clear Quartz Point
+9913,customer314@example.com,2024-04-08 00:19:48,15.00,69.85,Black Tourmaline
+9912,customer090@example.com,2024-04-06 07:29:36,11.00,30.95,Selenite Wand
+9912,customer090@example.com,2024-04-06 07:29:19,15.00,30.95,Black Tourmaline
+9910,onhold.case@example.com,2024-04-02 11:15:01,24.50,29.45,tigers-eye-bracelet
+9909,customer318@example.com,2024-04-01 18:56:36,59.00,74.95,Moonstone Ring
+9909,customer318@example.com,2024-04-01 18:56:10,11.00,74.95,selenite-wand
+9907,customer034@example.com,2024-03-30 17:21:09,12.00,16.95,Rose Quartz Tumble
+9906,customer051@example.com,2024-03-30 04:21:28,15.00,78.95,Black Tourmaline
+9906,customer051@example.com,2024-03-30 04:21:48,59.00,78.95,moonstone-ring
+9905,customer197@example.com,2024-03-24 13:58:14,24.50,60.45,Tiger's Eye Bracelet
+9905,customer197@example.com,2024-03-24 13:58:25,31.00,60.45,Crème Calcite Sphere
+9904,customer270@example.com,2024-03-24 03:16:44,18.90,23.85,Clear Quartz Point
+9903,customer005@example.com,2024-03-20 04:19:43,65.00,69.95,Citrine Geode
+9902,customer046@example.com,2024-03-20 00:41:33,15.00,19.95,black-tourmaline
+9901,customer017@example.com,2024-03-19 12:53:22,31.00,35.95,creme-calcite-sphere
+9900,customer010@example.com,2024-03-18 21:16:40,11.00,40.45,Selenite Wand
+9900,customer010@example.com,2024-03-18 21:16:38,24.50,40.45,tigers-eye-bracelet
+9899,customer235@example.com,2024-03-18 20:57:20,11.00,15.95,Selenite Wand
+9898,customer158@example.com,2024-03-18 19:49:10,65.00,69.95,Citrine Geode
+9897,customer072@example.com,2024-03-16 23:18:31,31.00,35.95,Crème Calcite Sphere
+,customer053@example.com,2024-03-14 12:40:01,15.00,30.95,black-tourmaline
+,customer053@example.com,2024-03-14 12:40:40,11.00,30.95,Selenite Wand
+9895,customer268@example.com,2024-03-12 15:11:27,22.00,26.95,Labradorite Palm Stone
+9893,customer069@example.com,2024-03-10 18:44:05,24.50,29.45,tigers-eye-bracelet
+9892,customer121@example.com,2024-03-09 22:25:24,49.00,65.95,amethyst-cluster
+9892,customer121@example.com,2024-03-09 22:25:17,12.00,65.95,Rose Quartz Tumble
+9891,customer056@example.com,2024-03-09 18:03:42,11.00,34.85,Selenite Wand
+9891,customer056@example.com,2024-03-09 18:03:13,18.90,34.85,clear-quartz-point
+9890,customer026@example.com,2024-03-07 07:24:15,24.50,41.45,tigers-eye-bracelet
+9890,customer026@example.com,2024-03-07 07:24:12,12.00,41.45,rose-quartz-tumble
+9889,customer129@example.com,2024-03-05 21:49:48,65.00,69.95,citrine-geode
+9888,repeat.values@example.com,2024-03-05 14:20:31,65.00,69.95,citrine-geode
+9887,customer140@example.com,2024-03-03 05:01:00,12.00,16.95,rose-quartz-tumble
+9886,customer299@example.com,2024-03-02 22:29:47,15.00,127.95,Black Tourmaline
+9886,customer299@example.com,2024-03-02 22:29:04,59.00,127.95,Moonstone Ring
+9886,customer299@example.com,2024-03-02 22:29:30,49.00,127.95,amethyst-cluster
+9885,customer061@example.com,2024-03-02 11:46:42,31.00,111.95,creme-calcite-sphere
+9885,customer061@example.com,2024-03-02 11:46:04,11.00,111.95,selenite-wand
+9885,customer061@example.com,2024-03-02 11:46:31,65.00,111.95,citrine-geode
+9884,customer220@example.com,2024-02-29 10:22:24,15.00,19.95,black-tourmaline
+9883,customer046@example.com,2024-02-29 06:18:03,38.00,107.95,Smoky Quartz Tower
+9883,customer046@example.com,2024-02-29 06:18:09,65.00,107.95,Citrine Geode
+9881,customer017@example.com,2024-02-22 17:50:11,49.00,53.95,amethyst-cluster
+,customer003@example.com,2024-02-21 20:00:20,12.00,16.95,Rose Quartz Tumble
+9879,customer089@example.com,2024-02-21 18:17:00,49.00,53.95,Amethyst Cluster
+9878,customer040@example.com,2024-02-21 18:13:22,15.00,19.95,black-tourmaline
+,customer033@example.com,2024-02-19 00:41:17,65.00,69.95,Citrine Geode
+,customer269@example.com,2024-02-18 23:08:04,65.00,88.85,Citrine Geode
+,customer269@example.com,2024-02-18 23:08:27,18.90,88.85,Clear Quartz Point
+9874,customer273@example.com,2024-02-18 10:55:10,22.00,110.45,labradorite-palm-stone
+9874,customer273@example.com,2024-02-18 10:55:31,59.00,110.45,Moonstone Ring
+9874,customer273@example.com,2024-02-18 10:55:16,24.50,110.45,tigers-eye-bracelet
+,customer193@example.com,2024-02-18 04:57:50,24.50,51.45,tigers-eye-bracelet
+,customer193@example.com,2024-02-18 04:57:08,22.00,51.45,Labradorite Palm Stone
+,customer312@example.com,2024-02-18 02:44:37,12.00,31.95,rose-quartz-tumble
+,customer312@example.com,2024-02-18 02:44:21,15.00,31.95,Black Tourmaline
+9870,customer102@example.com,2024-02-18 00:44:22,24.50,48.35,tigers-eye-bracelet
+9870,customer102@example.com,2024-02-18 00:44:36,18.90,48.35,Clear Quartz Point
+9868,customer266@example.com,2024-02-16 06:27:01,24.50,29.45,tigers-eye-bracelet
+9867,customer073@example.com,2024-02-15 19:32:47,18.90,23.85,Clear Quartz Point
+,customer034@example.com,2024-02-14 22:22:19,12.00,16.95,Rose Quartz Tumble
+9865,no.entry@example.com,2024-02-14 19:30:32,12.00,16.95,rose-quartz-tumble
+9864,customer003@example.com,2024-02-10 06:09:01,24.50,48.35,Tiger's Eye Bracelet
+9864,customer003@example.com,2024-02-10 06:09:06,18.90,48.35,clear-quartz-point
+9863,customer239@example.com,2024-02-07 20:31:25,65.00,81.95,Citrine Geode
+9863,customer239@example.com,2024-02-07 20:31:26,12.00,81.95,rose-quartz-tumble
+9862,customer175@example.com,2024-02-07 03:38:04,22.00,38.95,labradorite-palm-stone
+9862,customer175@example.com,2024-02-07 03:38:29,12.00,38.95,rose-quartz-tumble
+9861,customer017@example.com,2024-02-06 17:31:12,18.90,38.85,clear-quartz-point
+9861,customer017@example.com,2024-02-06 17:31:37,15.00,38.85,black-tourmaline
+,customer308@example.com,2024-02-05 02:28:09,59.00,63.95,moonstone-ring
+9858,customer045@example.com,2024-01-29 21:07:48,59.00,63.95,Moonstone Ring
+9857,customer057@example.com,2024-01-27 14:36:00,31.00,132.95,creme-calcite-sphere
+9857,customer057@example.com,2024-01-27 14:36:18,38.00,132.95,Smoky Quartz Tower
+9857,customer057@example.com,2024-01-27 14:36:14,59.00,132.95,Moonstone Ring
+9856,customer106@example.com,2024-01-26 20:31:13,59.00,63.95,Moonstone Ring
+9855,customer272@example.com,2024-01-23 22:50:01,15.00,78.95,black-tourmaline
+9855,customer272@example.com,2024-01-23 22:50:14,59.00,78.95,Moonstone Ring
+9854,customer042@example.com,2024-01-23 08:29:29,38.00,53.95,smoky-quartz-tower
+9854,customer042@example.com,2024-01-23 08:29:46,11.00,53.95,selenite-wand
+9852,case.test@example.com,2024-01-20 08:15:43,31.00,98.45,Crème Calcite Sphere
+9852,case.test@example.com,2024-01-20 08:15:35,24.50,98.45,Tiger's Eye Bracelet
+9852,case.test@example.com,2024-01-20 08:15:03,38.00,98.45,smoky-quartz-tower
+9851,customer185@example.com,2024-01-18 19:17:37,22.00,38.95,Labradorite Palm Stone
+9851,customer185@example.com,2024-01-18 19:17:30,12.00,38.95,Rose Quartz Tumble
+9850,customer064@example.com,2024-01-17 12:15:30,18.90,23.85,Clear Quartz Point
+,customer185@example.com,2024-01-16 13:28:48,11.00,15.95,Selenite Wand
+9847,customer307@example.com,2024-01-15 11:35:39,65.00,69.95,Citrine Geode
+9846,customer024@example.com,2024-01-12 15:47:44,24.50,29.45,tigers-eye-bracelet
+9845,customer324@example.com,2024-01-12 03:35:43,59.00,63.95,moonstone-ring
+9843,customer076@example.com,2024-01-09 09:00:31,15.00,19.95,Black Tourmaline
+9842,customer158@example.com,2024-01-08 19:32:46,24.50,29.45,tigers-eye-bracelet
+,customer139@example.com,2024-01-08 04:57:06,31.00,35.95,Crème Calcite Sphere
+,customer227@example.com,2024-01-08 04:21:36,15.00,41.95,Black Tourmaline
+,customer227@example.com,2024-01-08 04:21:35,22.00,41.95,Labradorite Palm Stone
+9839,customer085@example.com,2024-01-07 16:33:21,65.00,69.95,Citrine Geode
+9838,customer264@example.com,2024-01-06 13:21:31,38.00,42.95,Smoky Quartz Tower
+9837,customer125@example.com,2024-01-06 01:27:13,49.00,118.95,Amethyst Cluster
+9837,customer125@example.com,2024-01-06 01:27:09,65.00,118.95,Citrine Geode
+,customer039@example.com,2024-01-04 20:04:25,24.50,29.45,tigers-eye-bracelet
+9835,customer250@example.com,2024-01-02 17:00:38,11.00,53.95,Selenite Wand
+9835,customer250@example.com,2024-01-02 17:00:38,38.00,53.95,Smoky Quartz Tower
+9834,customer133@example.com,2024-01-02 14:42:32,18.90,88.85,clear-quartz-point
+9834,customer133@example.com,2024-01-02 14:42:35,65.00,88.85,Citrine Geode
+9833,customer243@example.com,2024-01-02 13:38:42,38.00,42.95,smoky-quartz-tower
+9832,customer075@example.com,2023-12-31 20:16:07,31.00,46.95,Crème Calcite Sphere
+9832,customer075@example.com,2023-12-31 20:16:02,11.00,46.95,Selenite Wand
+9831,customer247@example.com,2023-12-30 03:06:15,11.00,15.95,Selenite Wand
+9830,customer310@example.com,2023-12-28 01:20:18,31.00,100.95,Crème Calcite Sphere
+9830,customer310@example.com,2023-12-28 01:20:41,65.00,100.95,Citrine Geode
+9829,customer153@example.com,2023-12-26 14:28:00,49.00,53.95,amethyst-cluster
+,customer028@example.com,2023-12-25 18:36:43,65.00,105.45,citrine-geode
+,customer028@example.com,2023-12-25 18:36:47,24.50,105.45,Tiger's Eye Bracelet
+,customer028@example.com,2023-12-25 18:36:21,11.00,105.45,selenite-wand
+9826,customer063@example.com,2023-12-25 02:54:41,12.00,54.95,Rose Quartz Tumble
+9826,customer063@example.com,2023-12-25 02:54:39,38.00,54.95,Smoky Quartz Tower
+,customer090@example.com,2023-12-23 16:21:25,12.00,31.95,Rose Quartz Tumble
+,customer090@example.com,2023-12-23 16:21:37,15.00,31.95,black-tourmaline
+9824,customer250@example.com,2023-12-22 07:05:33,38.00,53.95,Smoky Quartz Tower
+9824,customer250@example.com,2023-12-22 07:05:39,11.00,53.95,selenite-wand
+9823,customer046@example.com,2023-12-19 16:12:13,65.00,69.95,citrine-geode
+9822,customer254@example.com,2023-12-18 23:11:26,15.00,57.95,black-tourmaline
+9822,customer254@example.com,2023-12-18 23:11:45,38.00,57.95,Smoky Quartz Tower
+9821,customer254@example.com,2023-12-18 07:05:07,15.00,38.85,black-tourmaline
+9821,customer254@example.com,2023-12-18 07:05:27,18.90,38.85,Clear Quartz Point
+9819,customer215@example.com,2023-12-16 18:15:48,18.90,23.85,clear-quartz-point
+9817,customer032@example.com,2023-12-14 09:55:20,22.00,26.95,Labradorite Palm Stone
+9814,customer020@example.com,2023-12-10 02:52:46,11.00,40.45,Selenite Wand
+9814,customer020@example.com,2023-12-10 02:52:44,24.50,40.45,Tiger's Eye Bracelet
+9813,customer059@example.com,2023-12-10 00:05:08,65.00,69.95,citrine-geode
+,customer203@example.com,2023-12-08 19:23:17,24.50,29.45,tigers-eye-bracelet
+9811,customer048@example.com,2023-12-06 12:37:48,24.50,29.45,tigers-eye-bracelet
+9810,customer051@example.com,2023-12-05 20:48:44,18.90,23.85,clear-quartz-point
+9809,customer010@example.com,2023-12-02 11:18:02,49.00,53.95,amethyst-cluster
+9808,customer086@example.com,2023-12-02 02:41:49,15.00,78.95,Black Tourmaline
+9808,customer086@example.com,2023-12-02 02:41:35,59.00,78.95,moonstone-ring
+9807,customer331@example.com,2023-11-28 21:54:40,65.00,69.95,citrine-geode
+9805,customer029@example.com,2023-11-24 04:34:17,11.00,53.95,Selenite Wand
+9805,customer029@example.com,2023-11-24 04:34:02,38.00,53.95,Smoky Quartz Tower
+9803,customer270@example.com,2023-11-22 13:26:50,22.00,26.95,Labradorite Palm Stone
+9802,customer216@example.com,2023-11-21 16:55:40,38.00,54.95,Smoky Quartz Tower
+9802,customer216@example.com,2023-11-21 16:55:06,12.00,54.95,Rose Quartz Tumble
+9801,blank.attribution@example.com,2023-11-20 16:05:07,18.90,23.85,Clear Quartz Point
+9800,customer299@example.com,2023-11-19 14:53:26,65.00,100.95,Citrine Geode
+9800,customer299@example.com,2023-11-19 14:53:26,31.00,100.95,Crème Calcite Sphere
+9799,customer161@example.com,2023-11-17 13:32:03,18.90,48.35,clear-quartz-point
+9799,customer161@example.com,2023-11-17 13:32:15,24.50,48.35,Tiger's Eye Bracelet
+9798,customer020@example.com,2023-11-17 00:49:17,11.00,53.95,selenite-wand
+9798,customer020@example.com,2023-11-17 00:49:41,38.00,53.95,Smoky Quartz Tower
+9797,customer236@example.com,2023-11-16 22:15:07,31.00,46.95,Crème Calcite Sphere
+9797,customer236@example.com,2023-11-16 22:15:25,11.00,46.95,Selenite Wand
+9796,customer148@example.com,2023-11-14 08:18:03,12.00,16.95,rose-quartz-tumble
+9795,customer213@example.com,2023-11-14 01:14:07,11.00,37.95,Selenite Wand
+9795,customer213@example.com,2023-11-14 01:14:02,22.00,37.95,labradorite-palm-stone
+9794,customer035@example.com,2023-11-13 23:00:11,31.00,35.95,creme-calcite-sphere
+9793,customer128@example.com,2023-11-13 20:55:28,65.00,91.95,Citrine Geode
+9793,customer128@example.com,2023-11-13 20:55:03,22.00,91.95,Labradorite Palm Stone
+9792,customer086@example.com,2023-11-11 15:50:30,22.00,26.95,Labradorite Palm Stone
+,customer057@example.com,2023-11-08 17:16:45,49.00,53.95,amethyst-cluster
+9788,customer161@example.com,2023-11-06 19:54:03,59.00,88.45,Moonstone Ring
+9788,customer161@example.com,2023-11-06 19:54:02,24.50,88.45,Tiger's Eye Bracelet
+,customer089@example.com,2023-11-03 20:19:33,18.90,34.85,clear-quartz-point
+,customer089@example.com,2023-11-03 20:19:14,11.00,34.85,selenite-wand
+9785,customer080@example.com,2023-10-27 12:07:04,24.50,29.45,Tiger's Eye Bracelet
+9783,customer339@example.com,2023-10-23 08:12:35,22.00,26.95,Labradorite Palm Stone
+9782,customer227@example.com,2023-10-23 02:18:50,65.00,100.95,citrine-geode
+9782,customer227@example.com,2023-10-23 02:18:15,31.00,100.95,creme-calcite-sphere
+9781,customer053@example.com,2023-10-19 03:05:10,11.00,15.95,selenite-wand
+,customer058@example.com,2023-10-17 16:25:41,12.00,75.95,Rose Quartz Tumble
+,customer058@example.com,2023-10-17 16:25:27,59.00,75.95,moonstone-ring
+,customer006@example.com,2023-10-11 11:12:46,18.90,54.85,clear-quartz-point
+,customer006@example.com,2023-10-11 11:12:13,31.00,54.85,creme-calcite-sphere
+9777,customer019@example.com,2023-10-10 13:48:31,38.00,61.85,smoky-quartz-tower
+9777,customer019@example.com,2023-10-10 13:48:19,18.90,61.85,Clear Quartz Point
+,customer051@example.com,2023-10-01 21:38:11,59.00,63.95,moonstone-ring
+9774,customer110@example.com,2023-09-25 05:51:42,11.00,15.95,Selenite Wand
+9773,customer046@example.com,2023-09-24 22:41:08,31.00,35.95,Crème Calcite Sphere
+9772,customer060@example.com,2023-09-20 10:18:02,12.00,35.85,rose-quartz-tumble
+9772,customer060@example.com,2023-09-20 10:18:01,18.90,35.85,clear-quartz-point
+9771,customer020@example.com,2023-09-14 04:48:17,24.50,88.45,Tiger's Eye Bracelet
+9771,customer020@example.com,2023-09-14 04:48:30,59.00,88.45,Moonstone Ring
+9770,customer053@example.com,2023-09-12 04:24:02,31.00,35.95,Crème Calcite Sphere
+,customer005@example.com,2023-09-09 15:30:21,49.00,84.95,amethyst-cluster
+,customer005@example.com,2023-09-09 15:30:22,31.00,84.95,creme-calcite-sphere
+9767,customer330@example.com,2023-09-09 07:22:44,31.00,35.95,Crème Calcite Sphere
+9766,customer052@example.com,2023-09-08 09:59:03,31.00,47.95,creme-calcite-sphere
+9766,customer052@example.com,2023-09-08 09:59:09,12.00,47.95,Rose Quartz Tumble
+9765,customer217@example.com,2023-09-07 04:55:43,11.00,15.95,selenite-wand
+9764,customer086@example.com,2023-09-03 11:20:08,15.00,19.95,Black Tourmaline
+9762,customer155@example.com,2023-09-02 12:29:13,11.00,15.95,Selenite Wand
+,customer251@example.com,2023-09-02 07:53:13,18.90,76.85,clear-quartz-point
+,customer251@example.com,2023-09-02 07:53:31,38.00,76.85,smoky-quartz-tower
+,customer251@example.com,2023-09-02 07:53:37,15.00,76.85,black-tourmaline
+9760,customer129@example.com,2023-09-01 10:16:29,22.00,45.85,labradorite-palm-stone
+9760,customer129@example.com,2023-09-01 10:16:43,18.90,45.85,Clear Quartz Point
+9759,customer047@example.com,2023-09-01 09:54:07,49.00,106.95,Amethyst Cluster
+9759,customer047@example.com,2023-09-01 09:54:27,38.00,106.95,Smoky Quartz Tower
+9759,customer047@example.com,2023-09-01 09:54:32,15.00,106.95,black-tourmaline
+,customer005@example.com,2023-09-01 06:10:11,31.00,60.45,creme-calcite-sphere
+,customer005@example.com,2023-09-01 06:10:19,24.50,60.45,tigers-eye-bracelet
+9757,customer037@example.com,2023-08-31 07:43:19,24.50,40.45,Tiger's Eye Bracelet
+9757,customer037@example.com,2023-08-31 07:43:42,11.00,40.45,selenite-wand
+9756,customer015@example.com,2023-08-30 09:32:26,65.00,69.95,citrine-geode
+9755,customer053@example.com,2023-08-29 12:56:09,22.00,45.85,labradorite-palm-stone
+9755,customer053@example.com,2023-08-29 12:56:45,18.90,45.85,Clear Quartz Point
+9754,customer193@example.com,2023-08-29 01:37:36,12.00,75.95,Rose Quartz Tumble
+9754,customer193@example.com,2023-08-29 01:37:20,59.00,75.95,Moonstone Ring
+9753,customer229@example.com,2023-08-28 13:35:00,15.00,19.95,black-tourmaline
+9751,customer003@example.com,2023-08-27 05:01:23,65.00,94.45,Citrine Geode
+9751,customer003@example.com,2023-08-27 05:01:42,24.50,94.45,Tiger's Eye Bracelet
+9750,customer029@example.com,2023-08-27 01:13:30,65.00,69.95,citrine-geode
+9749,customer062@example.com,2023-08-26 22:30:19,15.00,19.95,Black Tourmaline
+9748,customer333@example.com,2023-08-24 13:16:36,31.00,73.95,Crème Calcite Sphere
+9748,customer333@example.com,2023-08-24 13:16:32,38.00,73.95,Smoky Quartz Tower
+9747,customer325@example.com,2023-08-24 09:40:50,38.00,57.95,smoky-quartz-tower
+9747,customer325@example.com,2023-08-24 09:40:33,15.00,57.95,black-tourmaline
+9745,customer217@example.com,2023-08-22 01:45:39,18.90,23.85,Clear Quartz Point
+9744,customer011@example.com,2023-08-19 10:35:48,18.90,45.85,Clear Quartz Point
+9744,customer011@example.com,2023-08-19 10:35:07,22.00,45.85,labradorite-palm-stone
+,customer206@example.com,2023-08-19 08:29:01,22.00,64.95,Labradorite Palm Stone
+,customer206@example.com,2023-08-19 08:29:36,38.00,64.95,Smoky Quartz Tower
+,customer078@example.com,2023-08-18 01:31:33,11.00,15.95,Selenite Wand
+,customer247@example.com,2023-08-16 10:56:30,15.00,50.95,black-tourmaline
+,customer247@example.com,2023-08-16 10:56:45,31.00,50.95,Crème Calcite Sphere
+9739,customer028@example.com,2023-08-12 07:47:45,12.00,16.95,Rose Quartz Tumble
+9738,customer205@example.com,2023-08-09 23:46:07,24.50,41.45,tigers-eye-bracelet
+9738,customer205@example.com,2023-08-09 23:46:40,12.00,41.45,Rose Quartz Tumble
+9737,case.test@example.com,2023-08-09 12:30:38,59.00,112.95,Moonstone Ring
+9737,case.test@example.com,2023-08-09 12:30:23,49.00,112.95,Amethyst Cluster
+9736,customer026@example.com,2023-08-06 12:30:41,31.00,35.95,Crème Calcite Sphere
+9735,customer317@example.com,2023-08-01 04:34:23,24.50,29.45,Tiger's Eye Bracelet
+9734,customer295@example.com,2023-08-01 02:20:03,18.90,23.85,clear-quartz-point
+9733,customer004@example.com,2023-07-31 04:16:24,49.00,53.95,amethyst-cluster
+9732,customer296@example.com,2023-07-31 02:20:13,22.00,91.95,labradorite-palm-stone
+9732,customer296@example.com,2023-07-31 02:20:17,65.00,91.95,Citrine Geode
+9731,customer231@example.com,2023-07-30 13:38:00,22.00,51.45,Labradorite Palm Stone
+9731,customer231@example.com,2023-07-30 13:38:37,24.50,51.45,tigers-eye-bracelet
+9730,customer101@example.com,2023-07-25 21:27:32,59.00,82.85,moonstone-ring
+9730,customer101@example.com,2023-07-25 21:27:13,18.90,82.85,clear-quartz-point
+,customer057@example.com,2023-07-25 16:20:15,31.00,35.95,Crème Calcite Sphere
+9728,customer032@example.com,2023-07-20 16:26:08,11.00,53.95,Selenite Wand
+9728,customer032@example.com,2023-07-20 16:26:14,38.00,53.95,smoky-quartz-tower
+9727,customer049@example.com,2023-07-19 10:43:37,18.90,23.85,clear-quartz-point
+9726,customer189@example.com,2023-07-19 06:54:19,49.00,75.95,amethyst-cluster
+9726,customer189@example.com,2023-07-19 06:54:13,22.00,75.95,Labradorite Palm Stone
+9725,customer115@example.com,2023-07-18 03:22:39,49.00,100.45,Amethyst Cluster
+9725,customer115@example.com,2023-07-18 03:22:34,22.00,100.45,labradorite-palm-stone
+9725,customer115@example.com,2023-07-18 03:22:44,24.50,100.45,Tiger's Eye Bracelet
+9724,customer153@example.com,2023-07-16 09:08:25,49.00,84.95,Amethyst Cluster
+9724,customer153@example.com,2023-07-16 09:08:28,31.00,84.95,creme-calcite-sphere
+9721,customer195@example.com,2023-07-15 10:36:33,15.00,68.95,black-tourmaline
+9721,customer195@example.com,2023-07-15 10:36:48,49.00,68.95,amethyst-cluster
+9720,customer171@example.com,2023-07-14 09:21:20,22.00,26.95,labradorite-palm-stone
+9719,customer039@example.com,2023-07-14 06:31:50,65.00,69.95,Citrine Geode
+9718,customer004@example.com,2023-07-11 14:25:33,65.00,69.95,Citrine Geode
+9717,customer012@example.com,2023-07-09 13:51:27,12.00,16.95,Rose Quartz Tumble
+9716,customer004@example.com,2023-07-01 17:30:31,24.50,29.45,tigers-eye-bracelet
+9715,customer044@example.com,2023-07-01 03:56:08,24.50,44.45,Tiger's Eye Bracelet
+9715,customer044@example.com,2023-07-01 03:56:26,15.00,44.45,black-tourmaline
+9714,customer249@example.com,2023-07-01 02:58:27,59.00,63.95,moonstone-ring
+9712,customer129@example.com,2023-06-23 02:35:27,22.00,26.95,Labradorite Palm Stone
+9711,customer012@example.com,2023-06-21 22:24:16,24.50,29.45,tigers-eye-bracelet
+9710,customer330@example.com,2023-06-20 14:08:01,18.90,38.85,clear-quartz-point
+9710,customer330@example.com,2023-06-20 14:08:21,15.00,38.85,Black Tourmaline
+9709,customer056@example.com,2023-06-18 19:39:38,12.00,16.95,rose-quartz-tumble
+9708,customer048@example.com,2023-06-17 23:51:06,18.90,23.85,clear-quartz-point
+9707,customer269@example.com,2023-06-14 23:30:11,49.00,53.95,Amethyst Cluster
+9706,customer227@example.com,2023-06-14 22:11:43,15.00,19.95,Black Tourmaline
+9705,customer245@example.com,2023-06-14 21:54:46,15.00,19.95,black-tourmaline
+9704,customer024@example.com,2023-06-14 07:30:26,38.00,101.95,Smoky Quartz Tower
+9704,customer024@example.com,2023-06-14 07:30:39,59.00,101.95,moonstone-ring
+9703,customer196@example.com,2023-06-13 22:00:45,31.00,54.85,creme-calcite-sphere
+9703,customer196@example.com,2023-06-13 22:00:12,18.90,54.85,Clear Quartz Point
+9702,customer259@example.com,2023-06-11 19:30:34,22.00,26.95,Labradorite Palm Stone
+9701,customer262@example.com,2023-06-08 06:56:17,38.00,64.95,smoky-quartz-tower
+9701,customer262@example.com,2023-06-08 06:56:39,22.00,64.95,labradorite-palm-stone
+9700,customer045@example.com,2023-06-07 16:22:42,18.90,23.85,Clear Quartz Point
+9699,customer001@example.com,2023-06-03 15:54:43,11.00,46.95,selenite-wand
+9699,customer001@example.com,2023-06-03 15:54:43,31.00,46.95,Crème Calcite Sphere
+9698,customer050@example.com,2023-06-02 02:44:36,59.00,112.95,moonstone-ring
+9698,customer050@example.com,2023-06-02 02:44:10,49.00,112.95,Amethyst Cluster
+9697,customer220@example.com,2023-05-30 08:07:44,12.00,16.95,rose-quartz-tumble
+9696,customer163@example.com,2023-05-30 05:20:48,12.00,16.95,Rose Quartz Tumble
+9695,customer043@example.com,2023-05-24 12:46:33,15.00,19.95,black-tourmaline
+9693,customer279@example.com,2023-05-22 16:28:33,15.00,19.95,Black Tourmaline
+9692,customer047@example.com,2023-05-21 11:21:40,65.00,80.95,Citrine Geode
+9692,customer047@example.com,2023-05-21 11:21:43,11.00,80.95,selenite-wand
+9691,customer012@example.com,2023-05-19 19:05:46,18.90,23.85,clear-quartz-point
+9689,customer280@example.com,2023-05-14 08:28:18,11.00,46.95,Selenite Wand
+9689,customer280@example.com,2023-05-14 08:28:48,31.00,46.95,Crème Calcite Sphere
+9688,customer263@example.com,2023-05-13 09:36:46,11.00,15.95,selenite-wand
+,customer302@example.com,2023-05-12 18:45:46,12.00,62.95,rose-quartz-tumble
+,customer302@example.com,2023-05-12 18:45:43,31.00,62.95,creme-calcite-sphere
+,customer302@example.com,2023-05-12 18:45:39,15.00,62.95,black-tourmaline
+9686,customer060@example.com,2023-05-11 01:08:29,49.00,68.95,amethyst-cluster
+9686,customer060@example.com,2023-05-11 01:08:23,15.00,68.95,black-tourmaline
+9685,customer316@example.com,2023-05-09 19:44:38,15.00,50.95,Black Tourmaline
+9685,customer316@example.com,2023-05-09 19:44:16,31.00,50.95,Crème Calcite Sphere
+,customer162@example.com,2023-05-09 03:55:14,65.00,69.95,Citrine Geode
+,customer051@example.com,2023-05-06 19:58:04,31.00,35.95,creme-calcite-sphere
+9682,customer029@example.com,2023-05-06 10:29:41,11.00,46.95,selenite-wand
+9682,customer029@example.com,2023-05-06 10:29:43,31.00,46.95,creme-calcite-sphere
+,customer060@example.com,2023-05-03 23:25:38,59.00,112.95,moonstone-ring
+,customer060@example.com,2023-05-03 23:25:12,49.00,112.95,Amethyst Cluster
+9680,customer046@example.com,2023-05-03 15:45:19,31.00,47.95,creme-calcite-sphere
+9680,customer046@example.com,2023-05-03 15:45:13,12.00,47.95,rose-quartz-tumble
+9679,customer219@example.com,2023-05-01 15:13:16,49.00,68.95,amethyst-cluster
+9679,customer219@example.com,2023-05-01 15:13:18,15.00,68.95,Black Tourmaline
+9677,case.test@example.com,2023-05-01 10:00:35,18.90,23.85,Clear Quartz Point
+9676,customer192@example.com,2023-04-30 02:45:38,18.90,83.85,Clear Quartz Point
+9676,customer192@example.com,2023-04-30 02:45:15,38.00,83.85,Smoky Quartz Tower
+9676,customer192@example.com,2023-04-30 02:45:04,22.00,83.85,Labradorite Palm Stone
+9675,customer294@example.com,2023-04-28 05:41:05,11.00,89.45,selenite-wand
+9675,customer294@example.com,2023-04-28 05:41:36,24.50,89.45,Tiger's Eye Bracelet
+9675,customer294@example.com,2023-04-28 05:41:04,49.00,89.45,amethyst-cluster
+,customer143@example.com,2023-04-26 18:14:30,38.00,42.95,smoky-quartz-tower
+9672,customer122@example.com,2023-04-25 15:49:29,11.00,74.95,Selenite Wand
+9672,customer122@example.com,2023-04-25 15:49:26,59.00,74.95,Moonstone Ring
+9671,customer059@example.com,2023-04-25 00:38:26,38.00,78.45,Smoky Quartz Tower
+9671,customer059@example.com,2023-04-25 00:38:20,11.00,78.45,selenite-wand
+9671,customer059@example.com,2023-04-25 00:38:42,24.50,78.45,Tiger's Eye Bracelet
+9670,customer179@example.com,2023-04-21 18:42:22,31.00,60.45,Crème Calcite Sphere
+9670,customer179@example.com,2023-04-21 18:42:03,24.50,60.45,tigers-eye-bracelet
+9669,customer079@example.com,2023-04-20 07:07:46,12.00,56.45,Rose Quartz Tumble
+9669,customer079@example.com,2023-04-20 07:07:29,15.00,56.45,black-tourmaline
+9669,customer079@example.com,2023-04-20 07:07:04,24.50,56.45,Tiger's Eye Bracelet
+9666,customer248@example.com,2023-04-18 11:54:27,12.00,16.95,Rose Quartz Tumble
+9665,customer091@example.com,2023-04-18 11:16:43,11.00,15.95,Selenite Wand
+,customer102@example.com,2023-04-13 13:30:44,11.00,15.95,Selenite Wand
+9662,customer205@example.com,2023-04-12 22:01:45,18.90,38.85,clear-quartz-point
+9662,customer205@example.com,2023-04-12 22:01:30,15.00,38.85,Black Tourmaline
+9661,customer321@example.com,2023-04-12 01:03:39,12.00,140.95,rose-quartz-tumble
+9661,customer321@example.com,2023-04-12 01:03:19,59.00,140.95,Moonstone Ring
+9661,customer321@example.com,2023-04-12 01:03:19,65.00,140.95,citrine-geode
+,customer309@example.com,2023-04-10 12:12:38,18.90,23.85,Clear Quartz Point
+9659,customer172@example.com,2023-04-07 03:35:10,49.00,78.45,amethyst-cluster
+9659,customer172@example.com,2023-04-07 03:35:25,24.50,78.45,Tiger's Eye Bracelet
+9658,customer162@example.com,2023-04-04 19:58:06,12.00,16.95,rose-quartz-tumble
+9657,customer051@example.com,2023-03-31 11:23:26,65.00,81.95,Citrine Geode
+9657,customer051@example.com,2023-03-31 11:23:30,12.00,81.95,rose-quartz-tumble
+9656,customer165@example.com,2023-03-31 02:48:19,24.50,29.45,tigers-eye-bracelet
+9655,customer307@example.com,2023-03-30 23:39:27,12.00,65.95,Rose Quartz Tumble
+9655,customer307@example.com,2023-03-30 23:39:00,49.00,65.95,amethyst-cluster
+9654,customer043@example.com,2023-03-28 20:48:23,24.50,48.35,tigers-eye-bracelet
+9654,customer043@example.com,2023-03-28 20:48:18,18.90,48.35,clear-quartz-point
+9653,customer003@example.com,2023-03-27 15:44:43,24.50,29.45,tigers-eye-bracelet
+9652,customer299@example.com,2023-03-25 20:31:30,38.00,107.95,Smoky Quartz Tower
+9652,customer299@example.com,2023-03-25 20:31:31,65.00,107.95,Citrine Geode
+9651,customer081@example.com,2023-03-25 20:28:38,49.00,53.95,amethyst-cluster
+9650,customer011@example.com,2023-03-25 10:45:38,15.00,19.95,Black Tourmaline
+9648,customer246@example.com,2023-03-20 18:31:45,49.00,99.95,Amethyst Cluster
+9648,customer246@example.com,2023-03-20 18:31:23,31.00,99.95,creme-calcite-sphere
+9648,customer246@example.com,2023-03-20 18:31:28,15.00,99.95,black-tourmaline
+9646,customer181@example.com,2023-03-18 13:34:26,65.00,69.95,citrine-geode
+9645,customer041@example.com,2023-03-16 20:55:37,49.00,53.95,Amethyst Cluster
+9643,customer146@example.com,2023-03-12 02:27:21,31.00,35.95,Crème Calcite Sphere
+9641,customer331@example.com,2023-03-09 16:18:24,38.00,101.95,smoky-quartz-tower
+9641,customer331@example.com,2023-03-09 16:18:20,59.00,101.95,moonstone-ring
+,customer065@example.com,2023-03-07 06:00:05,15.00,19.95,black-tourmaline
+9638,customer271@example.com,2023-03-01 15:51:15,22.00,56.85,Labradorite Palm Stone
+9638,customer271@example.com,2023-03-01 15:51:49,11.00,56.85,Selenite Wand
+9638,customer271@example.com,2023-03-01 15:51:11,18.90,56.85,clear-quartz-point
+9637,customer032@example.com,2023-02-26 08:53:03,18.90,23.85,clear-quartz-point
+9635,customer202@example.com,2023-02-25 00:35:37,49.00,53.95,Amethyst Cluster
+9633,customer333@example.com,2023-02-23 05:37:28,38.00,42.95,smoky-quartz-tower
+9632,customer076@example.com,2023-02-21 14:01:14,12.00,16.95,rose-quartz-tumble
+9631,customer312@example.com,2023-02-18 01:24:06,24.50,94.45,tigers-eye-bracelet
+9631,customer312@example.com,2023-02-18 01:24:17,65.00,94.45,citrine-geode
+9630,customer315@example.com,2023-02-15 01:05:34,49.00,75.95,Amethyst Cluster
+9630,customer315@example.com,2023-02-15 01:05:27,22.00,75.95,labradorite-palm-stone
+9629,customer281@example.com,2023-02-13 15:36:22,31.00,35.95,Crème Calcite Sphere
+9628,customer200@example.com,2023-02-12 23:16:27,65.00,69.95,citrine-geode
+9627,customer017@example.com,2023-02-10 20:42:09,38.00,42.95,Smoky Quartz Tower
+9626,customer173@example.com,2023-02-10 18:47:15,38.00,42.95,smoky-quartz-tower
+9625,customer045@example.com,2023-02-10 13:03:12,59.00,63.95,moonstone-ring
+,customer295@example.com,2023-02-07 00:16:33,59.00,88.45,moonstone-ring
+,customer295@example.com,2023-02-07 00:16:28,24.50,88.45,tigers-eye-bracelet
+9622,customer104@example.com,2023-02-05 14:46:43,65.00,94.45,Citrine Geode
+9622,customer104@example.com,2023-02-05 14:46:20,24.50,94.45,Tiger's Eye Bracelet
+9621,customer244@example.com,2023-02-04 02:27:25,49.00,53.95,Amethyst Cluster
+9620,customer307@example.com,2023-02-01 20:17:48,49.00,112.95,Amethyst Cluster
+9620,customer307@example.com,2023-02-01 20:17:22,59.00,112.95,moonstone-ring
+9619,customer043@example.com,2023-02-01 13:49:40,12.00,75.95,Rose Quartz Tumble
+9619,customer043@example.com,2023-02-01 13:49:47,59.00,75.95,moonstone-ring
+9618,customer249@example.com,2023-01-31 06:03:04,59.00,63.95,Moonstone Ring
+9617,customer058@example.com,2023-01-30 13:00:33,12.00,65.95,rose-quartz-tumble
+9617,customer058@example.com,2023-01-30 13:00:41,49.00,65.95,Amethyst Cluster
+9615,customer030@example.com,2023-01-29 19:29:11,38.00,57.95,smoky-quartz-tower
+9615,customer030@example.com,2023-01-29 19:29:32,15.00,57.95,black-tourmaline
+,customer139@example.com,2023-01-29 17:51:27,65.00,69.95,Citrine Geode
+9611,customer127@example.com,2023-01-18 19:25:03,22.00,26.95,Labradorite Palm Stone
+9610,customer154@example.com,2023-01-16 02:21:32,38.00,42.95,Smoky Quartz Tower
+9609,customer021@example.com,2023-01-16 01:54:42,12.00,16.95,Rose Quartz Tumble
+9607,customer031@example.com,2023-01-10 19:20:44,24.50,60.45,tigers-eye-bracelet
+9607,customer031@example.com,2023-01-10 19:20:14,31.00,60.45,Crème Calcite Sphere
+9606,customer163@example.com,2023-01-10 08:53:25,38.00,42.95,Smoky Quartz Tower
+9605,customer018@example.com,2023-01-09 04:53:04,49.00,53.95,Amethyst Cluster
+9604,customer207@example.com,2023-01-06 17:56:25,12.00,75.95,rose-quartz-tumble
+9604,customer207@example.com,2023-01-06 17:56:02,59.00,75.95,moonstone-ring
+,customer340@example.com,2023-01-06 06:07:12,12.00,27.95,Rose Quartz Tumble
+,customer340@example.com,2023-01-06 06:07:46,11.00,27.95,selenite-wand
+9601,customer022@example.com,2023-01-02 19:14:26,15.00,19.95,Black Tourmaline

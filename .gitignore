@@ -1,0 +1,13 @@
+# Dependencies and build output
+node_modules/
+dist/
+test-results/
+playwright-report/
+blob-report/
+.vite/
+
+# Never commit real order exports. Only the synthetic fixtures are allowed.
+*.csv
+!fixtures/*.csv
+
+.DS_Store
