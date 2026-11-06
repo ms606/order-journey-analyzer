@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { DEVICE_NAMES, deviceTypeLabel, sourceTypeLabel } from '../lib/attribution';
 import { sortGroups } from '../lib/entry';
 import { clearFilter, describeFilters, EMPTY_FILTERS, type Filters } from '../lib/filters';
+import { ENTRY_GROUP_LABEL } from '../lib/labels';
 import { CUSTOMER_TYPE_LABEL, type AnalyzedOrder, type CustomerType } from '../lib/sequence';
 import { formatCount } from '../lib/stats';
 import { dayKey } from '../lib/dates';
@@ -109,7 +110,7 @@ export function FilterBar({
         {select('f-source-type', 'Source type', filters.sourceType, options.sourceTypes, 'sourceType')}
         {select('f-device-type', 'Device type', filters.deviceType, options.deviceTypes, 'deviceType')}
         {select('f-device-name', 'Device', filters.deviceName, options.deviceNames, 'deviceName')}
-        {select('f-group', 'Entry group', filters.entryGroup, options.groups, 'entryGroup')}
+        {select('f-group', ENTRY_GROUP_LABEL, filters.entryGroup, options.groups, 'entryGroup')}
         {select(
           'f-customer',
           'Customer type',

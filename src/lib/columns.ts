@@ -1,3 +1,5 @@
+import { ENTRY_PAGE_LABEL, ENTRY_TIME_LABEL, PAGES_LABEL, TRACKED_VISITS_LABEL } from './labels';
+
 /** Exact header names expected in the WooCommerce order export. */
 export const COL = {
   orderDate: 'Order Date',
@@ -67,10 +69,10 @@ export const ATTRIBUTION_LABELS: Readonly<Record<string, string>> = {
   [COL.sourceType]: 'Source type',
   [COL.referrer]: 'Referring site',
   [COL.utmSource]: 'Source',
-  [COL.sessionEntry]: 'Entry page',
-  [COL.sessionStart]: 'Visit start time',
-  [COL.sessionPages]: 'Pages viewed',
-  [COL.sessionCount]: 'Visit count',
+  [COL.sessionEntry]: ENTRY_PAGE_LABEL,
+  [COL.sessionStart]: ENTRY_TIME_LABEL,
+  [COL.sessionPages]: PAGES_LABEL,
+  [COL.sessionCount]: TRACKED_VISITS_LABEL,
   [COL.userAgent]: 'Browser details',
   [COL.deviceType]: 'Device type',
   [COL.utmMedium]: 'Campaign medium',

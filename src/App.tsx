@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { DEFAULT_ENTRY_RULES, GROUP_ORDER, sortGroups, type EntryRule } from './lib/entry';
 import { applyFilters, EMPTY_FILTERS, type Filters } from './lib/filters';
+import { ENTRY_PAGE_LABEL } from './lib/labels';
 import { buildExportAggregates, EMPTY_DECISIONS, type Decisions } from './lib/exports';
 import {
   buildItemOrders,
@@ -12,6 +13,7 @@ import {
   summarizeMatches,
 } from './lib/items';
 import { parseCsvText, parseOrdersCsv, type OrderRecord, type RawQuality } from './lib/parse';
+import { containsEmail } from './lib/privacy';
 import { buildDataCheck } from './lib/quality';
 import { analyzeOrders } from './lib/sequence';
 import { formatCount } from './lib/stats';
@@ -34,7 +36,7 @@ type TabId = 'check' | 'overview' | 'entry' | 'newrepeat' | 'sources' | 'decisio
 const ALL_TABS: readonly TabDef<TabId>[] = [
   { id: 'check', label: 'Data check' },
   { id: 'overview', label: 'Overview' },
-  { id: 'entry', label: 'Entry points' },
+  { id: 'entry', label: ENTRY_PAGE_LABEL },
   { id: 'newrepeat', label: 'New vs repeat' },
   { id: 'sources', label: 'Sources and devices' },
   { id: 'decisions', label: 'Decisions' },
@@ -120,6 +122,9 @@ export function App() {
       const headers = parsed.headers.filter((h) => h !== '');
       if (headers.length === 0 || parsed.rows.length === 0) {
         setItemsError(`${file.name}: this file has no rows to match.`);
+      } else if (headers.some(containsEmail)) {
+        // Column names are listed on screen, and these would be customer data.
+        setItemsError(`${file.name}: the first row looks like data, not column names. Add a row of column names and try again.`);
       } else {
         setItems({ fileName: file.name, headers, rows: parsed.rows, mapping: EMPTY_ITEMS_MAPPING });
       }

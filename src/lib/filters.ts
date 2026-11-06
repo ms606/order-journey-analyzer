@@ -1,6 +1,7 @@
 import { dayKey, formatDayKey } from './dates';
 import { deviceTypeLabel, sourceTypeLabel } from './attribution';
 import { CUSTOMER_TYPE_LABEL, type AnalyzedOrder, type CustomerType } from './sequence';
+import { ENTRY_GROUP_LABEL } from './labels';
 
 /** `null` means "all". An empty string means "Not recorded". */
 export interface Filters {
@@ -58,7 +59,7 @@ export function describeFilters(f: Filters): ActiveFilter[] {
   if (f.sourceType !== null) out.push({ key: 'sourceType', label: 'Source type', value: sourceTypeLabel(f.sourceType) });
   if (f.deviceType !== null) out.push({ key: 'deviceType', label: 'Device type', value: deviceTypeLabel(f.deviceType) });
   if (f.deviceName !== null) out.push({ key: 'deviceName', label: 'Device', value: f.deviceName });
-  if (f.entryGroup !== null) out.push({ key: 'entryGroup', label: 'Entry group', value: f.entryGroup });
+  if (f.entryGroup !== null) out.push({ key: 'entryGroup', label: ENTRY_GROUP_LABEL, value: f.entryGroup });
   if (f.customerType !== null) out.push({ key: 'customerType', label: 'Customer type', value: CUSTOMER_TYPE_LABEL[f.customerType] });
   return out;
 }

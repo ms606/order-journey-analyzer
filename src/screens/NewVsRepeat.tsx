@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { firstVsRepeatByGroup, pageBandsByType, summaryByCustomerType } from '../lib/aggregate';
+import { ENTRY_GROUP_LABEL, ENTRY_PAGE_LABEL, ENTRY_PAGE_NOTE, PAGES_LABEL, PAGES_NOTE } from '../lib/labels';
 import type { AnalyzedOrder } from '../lib/sequence';
 import { formatCount, formatMedian, formatPercent, plural } from '../lib/stats';
 import { useFormat } from '../format';
@@ -37,42 +38,42 @@ export function NewVsRepeatScreen({ orders, groups }: { orders: readonly Analyze
           label="Repeat orders"
           value={formatCount(types.repeat.orders)}
           sub={`Median order total ${f.money(types.repeat.medianTotalCents)}`}
-          how="Every counted order after an email’s first one. Not based on the visit count."
+          how="Every counted order after an email’s first one. Not based on tracked visits."
         />
         <StatTile
-          label="Median pages, first orders"
+          label={`Median ${PAGES_LABEL.toLowerCase()}, first orders`}
           value={formatMedian(types.first.medianPages)}
-          sub={`from ${formatCount(types.first.pagesRecorded)} orders with a page count`}
-          how="Middle value of pages viewed in the visit that ended in the order. With an even number of orders, the two middle values are averaged. Blank page counts are left out."
+          sub={`from ${formatCount(types.first.pagesRecorded)} orders with a value`}
+          how={`Middle value of ${PAGES_LABEL.toLowerCase()}. With an even number of orders, the two middle values are averaged. Blanks are left out. ${PAGES_NOTE}`}
         />
         <StatTile
-          label="Median pages, repeat orders"
+          label={`Median ${PAGES_LABEL.toLowerCase()}, repeat orders`}
           value={formatMedian(types.repeat.medianPages)}
-          sub={`from ${formatCount(types.repeat.pagesRecorded)} orders with a page count`}
-          how="Same as for first orders, for repeat orders only."
+          sub={`from ${formatCount(types.repeat.pagesRecorded)} orders with a value`}
+          how={`Same as for first orders, for repeat orders only. ${PAGES_NOTE}`}
         />
       </div>
 
       <Card
-        title="Where first and repeat orders start"
-        note="For each entry group: the share of first orders (blue) and the share of repeat orders (grey) that started there. Each colour adds up to 100% on its own, so the bars compare the mix, not the totals."
+        title={`${ENTRY_PAGE_LABEL} for first and repeat orders`}
+        note={`For each ${ENTRY_GROUP_LABEL.toLowerCase()}: the share of first orders (blue) and of repeat orders (grey) in that group. Each colour adds up to 100% on its own, so the bars compare the mix, not the totals. ${ENTRY_PAGE_NOTE}`}
       >
         <Legend items={LEGEND} />
         {paired.length === 0 ? (
           <p className="muted">No orders.</p>
         ) : (
           <PairedHBarChart
-            label="Entry group share for first and repeat orders"
+            label={`${ENTRY_GROUP_LABEL} share for first and repeat orders`}
             rows={paired.map((r) => ({ label: r.group, first: r.firstShare, repeat: r.repeatShare, firstCount: r.first, repeatCount: r.repeat }))}
           />
         )}
         <ShowNumbers>
           <DataTable
-            caption="Entry group share for first and repeat orders"
+            caption={`${ENTRY_GROUP_LABEL} share for first and repeat orders`}
             rows={paired}
             rowKey={(r) => r.group}
             columns={[
-              { header: 'Entry group', cell: (r) => r.group },
+              { header: ENTRY_GROUP_LABEL, cell: (r) => r.group },
               { header: 'First orders', align: 'right', cell: (r) => formatCount(r.first) },
               { header: 'Share of first orders', align: 'right', cell: (r) => formatPercent(r.firstShare) },
               { header: 'Repeat orders', align: 'right', cell: (r) => formatCount(r.repeat) },
@@ -83,26 +84,27 @@ export function NewVsRepeatScreen({ orders, groups }: { orders: readonly Analyze
       </Card>
 
       <Card
-        title="How many pages they viewed"
-        note="Orders grouped by pages viewed in the visit. Shares are of first orders (blue) and of repeat orders (grey) that have a page count."
+        title={PAGES_LABEL}
+        note={`Orders grouped by ${PAGES_LABEL.toLowerCase()}. Shares are of first orders (blue) and of repeat orders (grey) that have a value. ${PAGES_NOTE}`}
       >
         <Legend items={LEGEND} />
         <PairedColumnChart
-          label="Page count bands for first and repeat orders"
+          label={`${PAGES_LABEL} bands for first and repeat orders`}
           rows={bands.rows.map((b) => ({ label: b.band, first: b.firstShare, repeat: b.repeatShare, firstCount: b.first, repeatCount: b.repeat }))}
         />
         {bands.withoutPages > 0 ? (
           <p className="muted small">
-            {plural(bands.withoutPages, 'order has', 'orders have')} no page count and {bands.withoutPages === 1 ? 'is' : 'are'} not shown.
+            {plural(bands.withoutPages, 'order has', 'orders have')} no value for {PAGES_LABEL.toLowerCase()} and{' '}
+            {bands.withoutPages === 1 ? 'is' : 'are'} not shown.
           </p>
         ) : null}
         <ShowNumbers>
           <DataTable
-            caption="Page count bands"
+            caption={`${PAGES_LABEL} bands`}
             rows={bands.rows}
             rowKey={(r) => r.band}
             columns={[
-              { header: 'Pages viewed', cell: (r) => r.band },
+              { header: PAGES_LABEL, cell: (r) => r.band },
               { header: 'First orders', align: 'right', cell: (r) => formatCount(r.first) },
               { header: 'Share of first', align: 'right', cell: (r) => formatPercent(r.firstShare) },
               { header: 'Repeat orders', align: 'right', cell: (r) => formatCount(r.repeat) },

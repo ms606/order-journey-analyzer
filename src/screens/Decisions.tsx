@@ -10,6 +10,7 @@ import {
   type ExportAggregates,
 } from '../lib/exports';
 import type { EntryRule } from '../lib/entry';
+import { ENTRY_PAGE_LABEL, ENTRY_PAGE_NOTE, PAGES_NOTE } from '../lib/labels';
 import { statusLabel } from '../lib/status';
 import { downloadText } from '../download';
 import { Card } from '../components/ui';
@@ -165,12 +166,15 @@ export function DecisionsScreen({
         <NoteField label="Notes on the repeat customer definition" value={decisions.repeatDefinitionNote} onChange={(v) => set({ repeatDefinitionNote: v })} />
       </Card>
 
-      <Card title="How to label cart, checkout and account starts" note="Visits that began on /cart/, /checkout/ or /my-account/.">
-        <RadioList legend="Label these starts as…" name="cart-label" options={CART_LABEL_OPTIONS} value={decisions.cartLabel} onChange={(v) => set({ cartLabel: v })} />
-        <NoteField label="Notes on cart, checkout and account starts" value={decisions.cartLabelNote} onChange={(v) => set({ cartLabelNote: v })} />
+      <Card
+        title={`How to label cart, checkout and account ${ENTRY_PAGE_LABEL.toLowerCase()}s`}
+        note={`Orders whose ${ENTRY_PAGE_LABEL.toLowerCase()} is /cart/, /checkout/ or /my-account/. ${ENTRY_PAGE_NOTE}`}
+      >
+        <RadioList legend="Label these pages as…" name="cart-label" options={CART_LABEL_OPTIONS} value={decisions.cartLabel} onChange={(v) => set({ cartLabel: v })} />
+        <NoteField label={`Notes on cart, checkout and account ${ENTRY_PAGE_LABEL.toLowerCase()}s`} value={decisions.cartLabelNote} onChange={(v) => set({ cartLabelNote: v })} />
       </Card>
 
-      <Card title="Fields on the Order Detail page">
+      <Card title="Fields on the Order Detail page" note={`${ENTRY_PAGE_NOTE} ${PAGES_NOTE}`}>
         <CheckList
           legend="Show these fields for each order"
           options={ORDER_DETAIL_FIELDS}

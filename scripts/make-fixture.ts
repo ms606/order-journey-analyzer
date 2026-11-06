@@ -270,7 +270,7 @@ function baseRow(email: string, date: Date): Row {
 }
 
 const rows: Row[] = [];
-for (let i = 0; i < 478; i++) rows.push(baseRow(customerFor(), randomDate()));
+for (let i = 0; i < 470; i++) rows.push(baseRow(customerFor(), randomDate()));
 
 // ---------- edge cases ----------
 function edge(email: string, date: Date, overrides: Record<string, string>, opts: Partial<Row> = {}): Row {
@@ -358,13 +358,24 @@ rows.push(edge('full.refund@example.com', d(2024, 7, 7, 17, 0), { [COL.status]: 
 rows.push(edge('partial.refund@example.com', d(2024, 7, 9, 10, 10), { [COL.status]: 'wc-completed', [COL.total]: '89.00', [COL.refund]: '20.00' }));
 // More than 200 pages.
 rows.push(edge('many.pages@example.com', d(2024, 10, 3, 21, 0), { [COL.status]: 'wc-completed', [COL.sessionPages]: '245' }));
-// A session gap over one day (time zone not confirmed).
+// Time since tracked entry: over 1 day, exactly 1 day, exactly 7 days and over 7 days.
 rows.push(
   edge('long.gap@example.com', d(2024, 5, 10, 12, 0), {
     [COL.status]: 'wc-completed',
     [COL.sessionStart]: usDate(d(2024, 5, 8, 9, 0)),
   }),
 );
+rows.push(edge('one.day@example.com', d(2024, 5, 11, 12, 0), { [COL.status]: 'wc-completed', [COL.sessionStart]: usDate(d(2024, 5, 10, 12, 0)) }));
+rows.push(edge('seven.days@example.com', d(2024, 5, 19, 12, 0), { [COL.status]: 'wc-completed', [COL.sessionStart]: usDate(d(2024, 5, 12, 12, 0)) }));
+rows.push(edge('over.seven.days@example.com', d(2024, 5, 20, 12, 0), { [COL.status]: 'wc-completed', [COL.sessionStart]: usDate(d(2024, 5, 10, 12, 0)) }));
+// A blank session time on an otherwise normal order.
+rows.push(edge('blank.session.time@example.com', d(2024, 6, 1, 12, 0), { [COL.status]: 'wc-completed', [COL.sessionStart]: '' }));
+// A session count whose first value is 1, so it does not count as 2+ tracked visits.
+rows.push(edge('first.count.one@example.com', d(2024, 6, 2, 12, 0), { [COL.status]: 'wc-completed', [COL.sessionCount]: '1|2|2' }));
+// Entry rule order: -meaning under a Product or Shop rule, and capitals with a query and fragment.
+rows.push(edge('product.meaning@example.com', d(2024, 2, 2, 10, 0), { [COL.status]: 'wc-completed', [COL.sessionEntry]: `${SITE}/product/amethyst-meaning/` }));
+rows.push(edge('shop.meaning@example.com', d(2024, 2, 3, 10, 0), { [COL.status]: 'wc-completed', [COL.sessionEntry]: `${SITE}/shop/moonstone-meaning/?orderby=price` }));
+rows.push(edge('mixed.case.meaning@example.com', d(2024, 2, 4, 10, 0), { [COL.status]: 'wc-completed', [COL.sessionEntry]: `${SITE}/Citrine-Meaning/?ref=x#top` }));
 // Data check examples: one unreadable date and one duplicated Order ID.
 rows.push(edge('bad.date@example.com', d(2024, 8, 1, 10, 0), { [COL.status]: 'wc-completed', [COL.orderDate]: '2024-08-01 10:00' }, { includeInItems: false }));
 const DUPLICATE_ID = '100777';

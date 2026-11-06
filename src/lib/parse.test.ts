@@ -146,6 +146,31 @@ describe('row values', () => {
     }
     expect(r.orders[0]?.deviceName).toBe('iPhone');
   });
+
+  it('replaces an email in any text it keeps, so it can never be shown or exported', () => {
+    const r = ok(
+      makeCsv([
+        {
+          [COL.status]: 'status.person@example.com',
+          [COL.sourceType]: 'type.person@example.com|typein',
+          [COL.utmSource]: 'Sent to source.person@example.com',
+          [COL.deviceType]: 'device.person@example.com',
+        },
+      ]),
+    );
+    expect(r.orders[0]).toMatchObject({
+      status: '[email removed]',
+      sourceType: '[email removed]',
+      utmSource: 'Sent to [email removed]',
+      deviceType: '[email removed]',
+    });
+    expect(JSON.stringify(r)).not.toContain('@');
+  });
+
+  it('leaves ordinary status, source and device values alone', () => {
+    const r = ok(makeCsv([{ [COL.status]: 'wc-completed', [COL.sourceType]: 'utm', [COL.utmSource]: 'chatgpt.com', [COL.deviceType]: 'Mobile' }]));
+    expect(r.orders[0]).toMatchObject({ status: 'wc-completed', sourceType: 'utm', utmSource: 'chatgpt.com', deviceType: 'Mobile' });
+  });
 });
 
 describe('whole-file quality counts gathered while reading', () => {

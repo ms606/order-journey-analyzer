@@ -8,6 +8,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { expect, test, type Page } from '@playwright/test';
 import Papa from 'papaparse';
 import { PRODUCTION_CSP } from '../config/csp';
+import { ENTRY_GROUP_LABEL, ENTRY_PAGE_LABEL, ENTRY_PAGE_NOTE, PAGES_LABEL, PAGES_NOTE } from '../src/lib/labels';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const distFile = resolve(root, 'dist/index.html');
@@ -15,7 +16,13 @@ const ordersFixture = resolve(root, 'fixtures/synthetic-orders.csv');
 const itemsFixture = resolve(root, 'fixtures/synthetic-order-items.csv');
 
 const EMAIL_RE = /[A-Z0-9._%+-]+@[A-Z0-9-]+(?:\.[A-Z0-9-]+)*\.[A-Z]{2,}/i;
-const TABS = ['Data check', 'Overview', 'Entry points', 'New vs repeat', 'Sources and devices', 'Decisions'] as const;
+const TABS = ['Data check', 'Overview', ENTRY_PAGE_LABEL, 'New vs repeat', 'Sources and devices', 'Decisions'] as const;
+/** Old labels. Case-sensitive, because "No entry page" and "last tracked entry page" are correct. */
+const RETIRED_LABELS = /Entry points?|entry points?|Entry groups?|entry groups?|Entry pages?|Pages viewed|pages viewed|Page count|page count|Visit count|visit count|Visit start|visit start/;
+/** Any "entry page" that isn't the new label or the "No entry page" group. Ignores case. */
+const BARE_ENTRY_PAGE = /(?<!last tracked )(?<!no )entry pages?/i;
+/** Claims these tracking fields cannot support. */
+const RETIRED_CLAIMS = /time.to.purchase|customer journey/i;
 
 function fixtureRows(): Record<string, string>[] {
   const text = readFileSync(ordersFixture, 'utf8').replace(/^﻿/, '');
@@ -45,7 +52,7 @@ function privateFixtureValues(): string[] {
 
 async function pageText(page: Page): Promise<string> {
   return page.evaluate(() => {
-    const fields = [...document.querySelectorAll('input, textarea, select')]
+    const fields = [...document.querySelectorAll('input, textarea, select, option')]
       .map((el) => (el as HTMLInputElement).value)
       .join('\n');
     return `${document.body.innerText}\n${document.body.textContent ?? ''}\n${fields}`;
@@ -60,6 +67,13 @@ async function expectNoPrivateData(page: Page, privateValues: readonly string[],
   // Page URLs are shown as paths only: no query strings and no site address.
   expect(text.includes('?utm_source='), `query string visible on ${where}`).toBe(false);
   expect(text.includes('https://www.example.com'), `full URL visible on ${where}`).toBe(false);
+}
+
+async function expectNoRetiredWording(page: Page, where: string) {
+  const text = await pageText(page);
+  expect(text.match(RETIRED_LABELS)?.[0] ?? null, `old label on ${where}`).toBeNull();
+  expect(text.match(BARE_ENTRY_PAGE)?.[0] ?? null, `bare entry page label on ${where}`).toBeNull();
+  expect(text.match(RETIRED_CLAIMS)?.[0] ?? null, `unsupported claim on ${where}`).toBeNull();
 }
 
 /** The value of the stat tile whose label is exactly `label`. */
@@ -128,6 +142,13 @@ test('works from file:// with the synthetic fixture: every tab, no network, no e
   await expect(tileValue(page, 'Dates that could not be read')).toHaveText('1');
   await expect(page.getByText('Time zone not confirmed')).toBeVisible();
   await expect(page.getByText('wc-on-hold').first()).toBeVisible();
+  const check = page.getByRole('tabpanel');
+  await expect(check.getByRole('heading', { name: 'Time since tracked entry' })).toBeVisible();
+  await expect(check.getByRole('columnheader', { name: 'Share over 7 days' })).toBeVisible();
+  await expect(check.getByRole('heading', { name: 'Orders with 2+ tracked visits' })).toBeVisible();
+  await expect(check.getByText('Minimum', { exact: true })).toBeVisible();
+  await expect(check.getByRole('cell', { name: 'Meaning pages' }).first()).toBeVisible();
+  await expect(check.getByRole('cell', { name: 'All counted orders' }).first()).toBeVisible();
   await expectNoPrivateData(page, privateValues, 'Data check');
 
   // Optional order items file, mapped by hand.
@@ -156,16 +177,25 @@ test('works from file:// with the synthetic fixture: every tab, no network, no e
       await expect(panel.getByRole('heading', { name: 'Orders by month' })).toBeVisible();
       await expect(panel.locator('.recharts-bar-rectangle').first()).toBeVisible();
     }
-    if (name === 'Entry points') {
-      await expect(panel.getByRole('heading', { name: 'Top 20 entry pages' })).toBeVisible();
+    if (name === ENTRY_PAGE_LABEL) {
+      await expect(panel.getByRole('heading', { name: 'Top 20 last tracked entry pages' })).toBeVisible();
+      await expect(panel.locator('.screen-intro').getByText(ENTRY_PAGE_NOTE)).toBeVisible();
+      await expect(panel.locator('.note').filter({ hasText: PAGES_NOTE })).toBeVisible();
+      await expect(panel.locator('.recharts-cartesian-axis-tick-value').getByText('Meaning pages', { exact: true }).first()).toBeVisible();
       await expect(panel.getByText('Landed on a product they bought').first()).toBeVisible();
     }
-    if (name === 'New vs repeat') await expect(panel.getByRole('heading', { name: 'Where first and repeat orders start' })).toBeVisible();
+    if (name === 'New vs repeat') {
+      await expect(panel.getByRole('heading', { name: `${ENTRY_PAGE_LABEL} for first and repeat orders` })).toBeVisible();
+      await expect(panel.getByRole('heading', { name: PAGES_LABEL, exact: true })).toBeVisible();
+      await expect(panel.locator('.note').filter({ hasText: ENTRY_PAGE_NOTE })).toBeVisible();
+      await expect(panel.locator('.note').filter({ hasText: PAGES_NOTE })).toBeVisible();
+    }
     if (name === 'Sources and devices') await expect(panel.getByRole('heading', { name: 'Top 15 sources' })).toBeVisible();
     if (name === 'Decisions') await expect(panel.getByRole('button', { name: 'Download journey-decisions.json' })).toBeVisible();
     // Open every "show the numbers" / "how calculated" panel so their text is checked too.
     for (const s of await panel.locator('details > summary').all()) await s.click();
     await expectNoPrivateData(page, privateValues, name);
+    await expectNoRetiredWording(page, name);
   }
 
   // Filters: pick a source type, see the chip, reset.
@@ -176,13 +206,42 @@ test('works from file:// with the synthetic fixture: every tab, no network, no e
   await expect(page.locator('.filters-count strong')).not.toHaveText(before);
   await page.getByRole('button', { name: 'Reset filters' }).click();
   await expect(page.locator('.filters-count strong')).toHaveText(before);
+  await page.getByLabel(ENTRY_GROUP_LABEL, { exact: true }).selectOption('Meaning pages');
+  await expect(page.getByRole('button', { name: `Remove filter ${ENTRY_GROUP_LABEL}: Meaning pages` })).toBeVisible();
+  await page.getByRole('button', { name: 'Reset filters' }).click();
 
   // Editing entry rules updates the charts straight away.
-  await page.getByRole('tab', { name: 'Entry points' }).click();
+  await page.getByRole('tab', { name: ENTRY_PAGE_LABEL }).click();
   await page.getByLabel('New group name').fill('Blog');
   await page.getByRole('button', { name: 'Create group' }).click();
   await page.getByLabel('Move /blog/ to a group').selectOption('Blog');
   await expect(page.locator('.recharts-cartesian-axis-tick-value').getByText('Blog', { exact: true }).first()).toBeVisible();
+
+  // An ending-based rule can be added, and it moves pages out of "Articles or other".
+  await expect(page.getByLabel('Move /moon-calendar/ to a group')).toBeVisible();
+  await page.getByLabel('Match for a new rule').selectOption('ends_with');
+  await page.getByLabel('Value for a new rule').fill('-Calendar/');
+  await page.getByLabel('Group for a new rule').selectOption('Blog');
+  await page.getByRole('button', { name: 'Add rule' }).click();
+  await expect(page.getByLabel('Move /moon-calendar/ to a group')).toHaveCount(0);
+  await expect(page.getByLabel('Value for rule 12', { exact: true })).toHaveValue('-calendar');
+
+  // Each rule keeps its own priority, and rows are listed in run order.
+  const newRulePriority = page.getByLabel('Priority for rule 12', { exact: true });
+  await expect(newRulePriority).toHaveValue('120');
+  await newRulePriority.fill('110');
+  await newRulePriority.press('Enter');
+  await expect(page.getByRole('alert').filter({ hasText: 'already used' })).toBeVisible();
+  await expect(newRulePriority).toHaveValue('120');
+  await newRulePriority.fill('later');
+  await newRulePriority.press('Enter');
+  await expect(page.getByRole('alert').filter({ hasText: 'not a whole number' })).toBeVisible();
+  await expect(newRulePriority).toHaveValue('120');
+  await newRulePriority.fill('5');
+  await newRulePriority.press('Enter');
+  await expect(page.getByLabel('Value for rule 1', { exact: true })).toHaveValue('-calendar');
+  await expect(page.getByLabel('Priority for rule 1', { exact: true })).toHaveValue('5');
+  await expect(page.getByRole('alert')).toHaveCount(0);
 
   // Exports contain rules, decisions and totals only.
   await page.getByRole('tab', { name: 'Decisions' }).click();
@@ -195,8 +254,15 @@ test('works from file:// with the synthetic fixture: every tab, no network, no e
   const json = readFileSync(await jsonDownload.path(), 'utf8');
   expect(json.match(EMAIL_RE)).toBeNull();
   expect(privateValues.filter((v) => json.includes(v))).toEqual([]);
-  const parsed = JSON.parse(json) as { entryPageRules: { segments: Array<{ segment: string; group: string }> } };
-  expect(parsed.entryPageRules.segments).toContainEqual({ segment: 'blog', group: 'Blog' });
+  expect(json.match(RETIRED_CLAIMS)).toBeNull();
+  const parsed = JSON.parse(json) as {
+    entryPageRules: { rules: Array<{ priority: number; matchType: string; value: string; group: string }> };
+    aggregates: { timeSinceTrackedEntry: { total: { orders: number } }; ordersWith2PlusTrackedVisits: { total: { orders: number } } };
+  };
+  expect(parsed.entryPageRules.rules).toContainEqual({ priority: 110, matchType: 'exact_segment', value: 'blog', group: 'Blog' });
+  expect(parsed.entryPageRules.rules[0]).toEqual({ priority: 5, matchType: 'ends_with', value: '-calendar', group: 'Blog' });
+  expect(parsed.aggregates.timeSinceTrackedEntry.total.orders).toBeGreaterThan(0);
+  expect(parsed.aggregates.ordersWith2PlusTrackedVisits.total.orders).toBeGreaterThan(0);
 
   const [csvDownload] = await Promise.all([
     page.waitForEvent('download'),
@@ -204,8 +270,13 @@ test('works from file:// with the synthetic fixture: every tab, no network, no e
   ]);
   expect(csvDownload.suggestedFilename()).toBe('entry_page_rules.csv');
   const csv = readFileSync(await csvDownload.path(), 'utf8');
-  expect(csv.split(/\r?\n/)[0]).toBe('segment,entry_group');
-  expect(csv).toContain('blog,Blog');
+  const csvLines = csv.split(/\r?\n/);
+  expect(csvLines[0]).toBe('priority,match_type,value,entry_group');
+  expect(csvLines[1]).toBe('5,ends_with,-calendar,Blog');
+  expect(csvLines).toContain('100,ends_with,-meaning,Meaning pages');
+  expect(csvLines).toContain('110,exact_segment,blog,Blog');
+  // The blank URL, homepage and final fallback are fixed rules outside the CSV.
+  for (const fixed of ['No entry page', 'Homepage', 'Articles or other']) expect(csv).not.toContain(fixed);
 
   // No horizontal page scrolling at tablet width.
   await page.setViewportSize({ width: 768, height: 1024 });
@@ -234,4 +305,62 @@ test('works from file:// with the synthetic fixture: every tab, no network, no e
   expect(httpRequests, 'http(s) requests').toEqual([]);
   expect(allRequests.filter((u) => !u.startsWith('file:') && !u.startsWith('blob:') && !u.startsWith('data:'))).toEqual([]);
   expect(consoleErrors, 'console errors').toEqual([]);
+});
+
+test('emails in unexpected places never reach the screen or the downloads', async ({ page }) => {
+  // The fixture keeps emails in the email column, so plant some in cells the app keeps as text.
+  const rows = fixtureRows();
+  const planted: Array<[string, string]> = [
+    ['_wc_order_attribution_utm_source', 'planted.source@example.org'],
+    ['_wc_order_attribution_source_type', 'planted.type@example.org'],
+    ['_wc_order_attribution_device_type', 'planted.device@example.org'],
+    ['Order Status', 'planted.status@example.org'],
+    ['_wc_order_attribution_session_entry', 'https://www.example.com/planted.path@example.org/'],
+  ];
+  planted.forEach(([column, value], i) => {
+    const row = rows[20 + i];
+    if (row) row[column] = value;
+  });
+  const privateValues = privateFixtureValues();
+
+  await page.goto(pathToFileURL(distFile).href);
+  await page.getByLabel('Order export CSV file').setInputFiles({
+    name: 'orders-copy.csv',
+    mimeType: 'text/csv',
+    buffer: Buffer.from(Papa.unparse(rows)),
+  });
+  await expect(page.getByRole('tab', { name: 'Data check' })).toHaveAttribute('aria-selected', 'true');
+  await expect(tileValue(page, 'Rows in file')).toHaveText('500');
+
+  // An items file with no header row: its first row is data, so it is refused and not listed as columns.
+  await page.getByLabel('Order items CSV file').setInputFiles({
+    name: 'no-header.csv',
+    mimeType: 'text/csv',
+    buffer: Buffer.from('1001,planted.header@example.org,10.00\n1002,planted.second@example.org,12.00\n'),
+  });
+  await expect(page.getByRole('alert').filter({ hasText: 'looks like data' })).toBeVisible();
+  await expect(page.getByLabel('Order number')).toHaveCount(0);
+
+  // A group name typed by a reviewer, used by a rule that matches orders.
+  await page.getByRole('tab', { name: ENTRY_PAGE_LABEL }).click();
+  await page.getByLabel('New group name').fill('planted.group@example.org');
+  await page.getByRole('button', { name: 'Create group' }).click();
+  await page.getByLabel('Group for rule 1', { exact: true }).selectOption({ label: '[email removed]' });
+
+  for (const name of TABS) {
+    await page.getByRole('tab', { name }).click();
+    const panel = page.getByRole('tabpanel');
+    await expect(panel).toBeVisible();
+    for (const s of await panel.locator('details > summary').all()) await s.click();
+    await expectNoPrivateData(page, privateValues, `${name} with planted emails`);
+    expect(await pageText(page), `planted value on ${name}`).not.toContain('planted.');
+  }
+
+  for (const button of ['Download journey-decisions.json', 'Download entry_page_rules.csv']) {
+    const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: button }).click()]);
+    const text = readFileSync(await download.path(), 'utf8');
+    expect(text.match(EMAIL_RE)?.[0] ?? null, button).toBeNull();
+    expect(text, button).not.toContain('planted.');
+    expect(text, button).toContain('[email removed]');
+  }
 });

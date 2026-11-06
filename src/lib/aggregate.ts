@@ -1,4 +1,5 @@
 import { monthKey, monthLabel, monthRange } from './dates';
+import { endsWithMeaning } from './entry';
 import { medianOfPresent, share } from './stats';
 import type { AnalyzedOrder, CustomerType } from './sequence';
 
@@ -198,12 +199,15 @@ export interface MeaningSummary {
   share: number;
 }
 
-/** Orders whose entry path ends in `-meaning`, and how many different such paths there are. */
+/**
+ * Orders whose last URL segment ends in `-meaning`, and how many different such paths there are.
+ * Counts every such path, including any a higher-priority rule put in another group.
+ */
 export function meaningSummary(orders: readonly AnalyzedOrder[]): MeaningSummary {
   const paths = new Set<string>();
   let n = 0;
   for (const o of orders) {
-    if (o.entry.path !== null && o.entry.path.endsWith('-meaning')) {
+    if (o.entry.path !== null && endsWithMeaning(o.entry)) {
       n += 1;
       paths.add(o.entry.path);
     }

@@ -88,7 +88,7 @@ describe('order sequence', () => {
     const o = rec({ entryUrl: 'https://a.test/blog/x/' });
     expect(analyzeOrders([o], new Set(['wc-completed']), DEFAULT_ENTRY_RULES)[0]?.entryGroup).toBe(GROUP.other);
     expect(
-      analyzeOrders([o], new Set(['wc-completed']), [{ segment: 'blog', group: 'Blog' }])[0]?.entryGroup,
+      analyzeOrders([o], new Set(['wc-completed']), [{ priority: 200, matchType: 'exact_segment', value: 'blog', group: 'Blog' }])[0]?.entryGroup,
     ).toBe('Blog');
   });
 });

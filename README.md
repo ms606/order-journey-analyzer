@@ -21,9 +21,9 @@ The order export contains real customer data, so the app is built around these r
 | Nothing leaves the computer | No network code is used. The production file carries a Content Security Policy with `connect-src 'none'` and `default-src 'none'`. The smoke test fails on any `http`/`https` request. |
 | One self-contained file | `vite-plugin-singlefile` inlines all JS and CSS. System fonts only: no web fonts, CDN or analytics. |
 | Nothing is stored | No localStorage, sessionStorage, IndexedDB, cookies or service workers. Data lives in memory and disappears on reload or tab close. **Clear data** removes it immediately. |
-| No personal data on screen or in exports | Emails, cities, states and user agent strings are never displayed, logged or exported. While the file is read, each email is turned into an opaque key used only to group orders; the city, state and user agent text is dropped. Only aggregate figures are shown. |
-| URLs as paths only | Entry pages are reduced to their path. Query strings and fragments are removed. |
-| Exports hold rules, decisions and totals | Email addresses typed into the notes are replaced with `[email removed]` in the download. |
+| No personal data on screen or in exports | Emails, cities, states and user agent strings are never displayed, logged or exported. While the file is read, each email is turned into an opaque key used only to group orders; the city, state and user agent text is dropped. Anything that looks like an email in a status, source or device cell is replaced with `[email removed]` at the same point. Only aggregate figures are shown. |
+| URLs as paths only | Last tracked entry pages are reduced to their path. Query strings and fragments are removed. |
+| Exports hold rules, decisions and totals | Email addresses typed into the notes, rule values or group names are replaced with `[email removed]` in the download. |
 | Real CSVs stay out of git | `.gitignore` ignores `*.csv` but allows `fixtures/*.csv`. |
 
 The CSP is added to the production build only, so the Vite dev server still works:
@@ -31,6 +31,17 @@ The CSP is added to the production build only, so the Vite dev server still work
 ```
 default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'
 ```
+
+## What the tracking fields can and can't show
+
+These WooCommerce fields are useful, but they are not the full customer journey, and the app never describes them that way.
+
+- `session_entry` and `session_start_time` are the saved entry page and time. They can come from an earlier visit, because
+  a direct return doesn't replace them. The app calls them **Last tracked entry page** and **Tracked entry time**.
+- `session_pages` counts pages in the latest session only. The app calls it **Pages in latest session**.
+- `session_count` counts tracked visits in the same browser. It is a minimum, not a person's full visit history. The app
+  calls it **Tracked visits**.
+- Tracking can't connect different devices, different browsers, or cleared cookies.
 
 ## Requirements
 
@@ -60,11 +71,12 @@ server is needed.
 ## Using the app
 
 1. Drag the order export CSV onto the page, or choose it with the button. The file is read in the browser.
-2. **Data check** always uses the whole file. Choose which order statuses count. Failed and cancelled are left out by
-   default. Review blanks, repeated values and unusual rows. Optionally add an order items file and map its columns.
-3. **Overview**, **Entry points**, **New vs repeat** and **Sources and devices** respond to the filters at the top: date
-   range, source type, device type, device, entry group and customer type.
-4. On **Entry points**, edit the entry page rules. Every chart updates immediately. Move common pages out of "Articles or
+2. **Data check** ignores the filters. It uses every row in the file, unless a card says it uses the counted statuses.
+   Choose which order statuses count. Failed and cancelled are left out by default. Review blanks, repeated values, unusual
+   rows, Time since tracked entry and Orders with 2+ tracked visits. Optionally add an order items file and map its columns.
+3. **Overview**, **Last tracked entry page**, **New vs repeat** and **Sources and devices** respond to the filters at the
+   top: date range, source type, device type, device, last tracked entry page group and customer type.
+4. On **Last tracked entry page**, edit the rules. Every chart updates immediately. Move common pages out of "Articles or
    other" with one click.
 5. On **Decisions**, record what was agreed, then download `journey-decisions.json` and `entry_page_rules.csv`.
    Decisions are not saved, so download them before closing the page.
@@ -113,48 +125,68 @@ All calculations are pure functions in `src/lib`, separate from the UI, and cove
   with an unreadable date sort last.
 - "Customers with 2+ orders" counts customers in the current view who have two or more counted orders anywhere in the
   file, on the same basis as the order sequence.
-- Medians: with an even count, the two middle values are averaged. Blanks are excluded. Page counts use medians, never
-  averages.
+- Medians: with an even count, the two middle values are averaged. Blanks are excluded. Pages in latest session uses
+  medians, never averages.
 - Percentages use the counted, filtered orders as their base, unless a chart says otherwise. The first and repeat charts
   use each customer type's own total.
-- Session gap: Order Date minus session start, in minutes. Data check only counts orders above 1,440 minutes, labelled
-  "time zone not confirmed". There is no time-to-purchase metric.
+- **Time since tracked entry** (Data check): `Order Date` minus `session_start_time`, for counted orders with both values.
+  Shown by group as counts and shares for gaps over 1 day (more than 1,440 minutes) and over 7 days (more than 10,080
+  minutes), so exactly 1 day or exactly 7 days does not count. The share is the count divided by all counted orders in that
+  group, including orders with no session time. The two times may be in different time zones, so the card is labelled "Time
+  zone not confirmed".
+- **Orders with 2+ tracked visits** (Data check): counted orders whose first `session_count` value is above 1, so `1|2|2`
+  counts as 1. Shown by group as a count and a share of all counted orders in that group. It is labelled "Minimum", because
+  tracking only sees the same browser.
+- Filters do not affect these two tables, like the rest of Data check.
 - `session_count` is not used to find repeat customers. Data check reports how many repeat orders show a session count
   of 1.
 
-**Entry pages**
+**Last tracked entry page**
 
-- `session_entry` is read with `new URL()`; relative paths are resolved against a placeholder base. The first path
-  segment is used, ignoring case, query strings, fragments and trailing slashes. Anything that looks like an email in a
-  path is replaced.
-- Default groups: blank → No entry page; no path → Homepage; `product` → Product page; `shop`, `stones`, `chakra`,
-  `crystal-type`, `category` → Shop; `cart`, `checkout`, `my-account` → Cart, checkout, or account; anything else →
-  Articles or other.
-- Rules can be edited, added, removed and reset, and new group names can be created. When two rules cover the same
-  segment, the first one wins and the duplicate is flagged.
-- Entry points also counts orders whose entry path ends in `-meaning`.
+- `session_entry` is read with `new URL()`; relative paths are resolved against a placeholder base. Case, trailing slashes,
+  query strings and fragments are ignored. Anything that looks like an email in a path is replaced.
+- Every last tracked entry page gets one group, decided in this order:
+  1. Blank URL: No entry page (fixed)
+  2. No path: Homepage (fixed)
+  3. The editable rules, lowest priority number first. The first match wins.
+  4. Anything else: Articles or other (fixed)
+- There are two kinds of editable rule. `exact_segment` compares the first URL segment. `ends_with` compares the last URL
+  segment.
+- Default rules, in order: `product` → Product page; `shop`, `stones`, `chakra`, `crystal-type`, `category` → Shop; `cart`,
+  `checkout`, `my-account` → Cart, checkout, or account; then ending in `-meaning` → Meaning pages. So `/shop/x-meaning/`
+  is Shop and `/blog/x-meaning/` is Meaning pages.
+- Rules can be edited, added, removed and reset, and new group names can be created. Each rule needs its own priority number,
+  so the run order is the same in the app, the CSV and the database. A new rule runs last. That includes "Move to": pages
+  ending in `-meaning` stay in Meaning pages unless the new rule gets a lower number. A blank rule, or a repeat of an earlier
+  rule, is ignored and flagged.
+- The screen also counts every order whose path ends in `-meaning`, whatever its group, so that figure can be higher than the
+  Meaning pages group.
 
 **Optional order items file**
 
 - Load a second CSV on Data check. Its columns are unknown, so you map order number, email, date (with its layout),
-  order total, and product name or slug from dropdowns. Column contents are never displayed.
+  order total, and product name or slug from dropdowns. Column contents are never displayed. Column names are, so a
+  file whose first row contains an email is refused: that row is data, not column names. A file with no header row and
+  no email in its first row can't be told apart, and its first row would be listed as column names.
 - Matching, for each counted order:
   1. the exact order number, if that column is mapped;
   2. otherwise, including when a mapped number is not found: the same normalized email, calendar date and total in cents.
 - If more than one candidate could match, in either direction, the order is "ambiguous" and nothing is matched.
-- For matched orders that started on `/product/<slug>/`, the slug is compared with the purchased product names or slugs.
-  Both are lowercased, stripped of accents and punctuation, and hyphenated. The result shows on Entry points as "Landed
-  on a product they bought", "Landed on a different product" or "Couldn't check", labelled "Based on product name
-  matching".
+- For matched orders whose last tracked entry page is `/product/<slug>/`, the slug is compared with the purchased product
+  names or slugs. Both are lowercased, stripped of accents and punctuation, and hyphenated. The result shows on the Last
+  tracked entry page screen as "Landed on a product they bought", "Landed on a different product" or "Couldn't check",
+  labelled "Based on product name matching".
 
 ## Exports
 
 - `journey-decisions.json`: counted statuses, report filters, repeat-customer definition, the cart/checkout/account
-  label, Order Detail fields, notes, the effective entry rules, the data rules above, and aggregate figures (row count,
-  date range, orders by status, net sales, customers, first and repeat counts, orders by entry group, Data check counts).
-  Filters do not affect it.
-- `entry_page_rules.csv`: columns `segment,entry_group`. Besides one row per rule, three marker rows describe the fixed
-  rules: `(blank entry page)`, `(no path)` and `(anything else)`.
+  label, Order Detail fields, notes, the last tracked entry page rules including the fixed ones, the data rules above, and aggregate
+  figures (row count, date range, orders by status, net sales, customers, first and repeat counts, orders by group, Time
+  since tracked entry, Orders with 2+ tracked visits, Data check counts). Filters do not affect it.
+- `entry_page_rules.csv`: columns `priority,match_type,value,entry_group`, one row per rule, in run order. `match_type` is
+  `exact_segment` or `ends_with`. Lower priority numbers run first. The blank URL, homepage and final fallback are fixed
+  rules, so they are not in the CSV: whatever loads it must apply them too (see "Last tracked entry page" above).
+- Email addresses typed into notes, rule values or group names are replaced with `[email removed]`.
 
 ## Tests
 
@@ -163,10 +195,11 @@ All calculations are pure functions in `src/lib`, separate from the UI, and cove
   fixture contains every required edge case.
 - **Smoke test** (`e2e/smoke.spec.ts`, Playwright): opens `dist/index.html` via `file://`, checks the missing-column
   error, uploads the fixture and the items fixture, maps the items columns, and visits every tab, opening every
-  expandable note. It checks keyboard tab navigation, filters, a rule edit, both downloads, and that there is no
-  horizontal scrolling at 768 px. It asserts no `http`/`https` requests, no console errors, no email address or other
-  fixture personal data in the page text, empty localStorage, sessionStorage and cookies, and no fixture data in the
-  build.
+  expandable note. It checks keyboard tab navigation, filters, adding an ending rule, changing a priority, both downloads,
+  and that there is no horizontal scrolling at 768 px. It asserts no `http`/`https` requests, no console errors, no email
+  address or other fixture personal data in the page text, no old labels or unsupported claims on any tab, empty
+  localStorage, sessionStorage and cookies, and no fixture data in the build. A second run plants emails in status, source,
+  device and path cells, in a group name and in an items file with no header row, and checks they reach no screen or download.
 
 ### Browsers
 
@@ -183,9 +216,10 @@ places) and `fixtures/synthetic-order-items.csv` (an items file with invented co
 includes all five statuses plus one unknown status; two- and three-part repeated values; differing repeated page counts;
 ISO session times in repeated cells; a fully blank attribution row; a row with a source but no entry page; emails that
 differ only by case or spaces; two same-minute orders from one customer whose IDs sort differently as text and as
-numbers; full and partial refunds; an order over 200 pages; and a session gap over one day. It also includes one
-unreadable date and one duplicated Order ID, so those Data check counts are not always zero. The output is
-deterministic, using a seeded random generator.
+numbers; full and partial refunds; an order over 200 pages; gaps of over 1 day, exactly 1 day, exactly 7 days and over 7
+days; a blank session time; a session count of `1|2|2`; and `-meaning` paths under Product and Shop rules and in mixed case
+with a query and fragment. It also includes one unreadable date and one duplicated Order ID, so those Data check counts are
+not always zero. The output is deterministic, using a seeded random generator.
 
 ## Project layout
 

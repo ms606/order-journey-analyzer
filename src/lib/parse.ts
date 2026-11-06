@@ -4,11 +4,12 @@ import { firstPart, parseCount, repeatInfo, deviceNameFromUserAgent, type Device
 import { parseOrderDate, parseSessionStart } from './dates';
 import { parseMoneyToCents } from './money';
 import { parseEntry, type EntryInfo } from './entry';
-import { emailKey } from './privacy';
+import { emailKey, redactEmails } from './privacy';
 
 /**
  * One order, reduced to the fields the analysis needs.
- * It holds no email, city, state, or user agent text.
+ * It holds no email, city, state, or user agent text. The text it keeps can be shown on screen,
+ * so anything that looks like an email in those cells is replaced as the file is read.
  */
 export interface OrderRecord {
   /** 1-based position of the row in the file. */
@@ -187,19 +188,19 @@ export function parseOrdersCsv(text: string): ParseResult {
       row: i + 1,
       orderId,
       orderIdNum: idNum !== null && Number.isSafeInteger(idNum) ? idNum : null,
-      status: cell(row, COL.status).trim(),
+      status: redactEmails(cell(row, COL.status).trim()),
       dateSec: parseOrderDate(cell(row, COL.orderDate)),
       customerKey: key ?? `no-email-row-${i + 1}`,
       hasEmail: key !== null,
       totalCents,
       refundCents,
-      sourceType: firstPart(cell(row, COL.sourceType)),
-      utmSource: firstPart(cell(row, COL.utmSource)),
+      sourceType: redactEmails(firstPart(cell(row, COL.sourceType))),
+      utmSource: redactEmails(firstPart(cell(row, COL.utmSource))),
       entry,
       pages: parseCount(cell(row, COL.sessionPages)),
       sessionCount: parseCount(cell(row, COL.sessionCount)),
       sessionStartSec,
-      deviceType: firstPart(cell(row, COL.deviceType)),
+      deviceType: redactEmails(firstPart(cell(row, COL.deviceType))),
       deviceName: deviceNameFromUserAgent(firstPart(cell(row, COL.userAgent))),
     };
   });

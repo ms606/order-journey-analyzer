@@ -2,12 +2,13 @@
  * Exports. These files may contain only rules, decisions and aggregate values:
  * never emails, locations, browser strings, or any single order.
  */
-import { buildRuleMap, GROUP, normalizeSegment, type EntryRule } from './entry';
+import { activeRules, GROUP, type EntryRule } from './entry';
+import { ENTRY_GROUP_LABEL, ENTRY_PAGE_LABEL, ENTRY_PAGE_NOTE, MINIMUM_NOTE, PAGES_LABEL, PAGES_NOTE } from './labels';
 import { redactEmails } from './privacy';
 import { statusLabel } from './status';
 import { dayKey } from './dates';
 import { overviewFigures } from './aggregate';
-import type { DataCheck } from './quality';
+import type { ByEntryGroup, DataCheck, EntryGapRow, TrackedVisitsRow } from './quality';
 import type { AnalyzedOrder } from './sequence';
 
 export const REPORT_FILTER_OPTIONS: ReadonlyArray<{ key: string; label: string }> = [
@@ -17,16 +18,16 @@ export const REPORT_FILTER_OPTIONS: ReadonlyArray<{ key: string; label: string }
   { key: 'source', label: 'Source (e.g. google, chatgpt.com)' },
   { key: 'device_type', label: 'Device type' },
   { key: 'device_name', label: 'Device name' },
-  { key: 'entry_group', label: 'Entry group' },
+  { key: 'entry_group', label: ENTRY_GROUP_LABEL },
   { key: 'customer_type', label: 'Customer type (first or repeat)' },
 ];
 
 export const ORDER_DETAIL_FIELDS: ReadonlyArray<{ key: string; label: string }> = [
   { key: 'source_type', label: 'Source type' },
   { key: 'source', label: 'Source' },
-  { key: 'entry_page', label: 'Entry page' },
-  { key: 'entry_group', label: 'Entry group' },
-  { key: 'page_count', label: 'Page count' },
+  { key: 'entry_page', label: ENTRY_PAGE_LABEL },
+  { key: 'entry_group', label: ENTRY_GROUP_LABEL },
+  { key: 'page_count', label: PAGES_LABEL },
   { key: 'device_type', label: 'Device type' },
   { key: 'device_name', label: 'Device name' },
   { key: 'customer_type', label: 'Customer type' },
@@ -85,6 +86,8 @@ export interface ExportAggregates {
   firstOrders: number;
   repeatOrders: number;
   ordersByEntryGroup: Record<string, number>;
+  timeSinceTrackedEntry: ByEntryGroup<EntryGapRow>;
+  ordersWith2PlusTrackedVisits: ByEntryGroup<TrackedVisitsRow>;
   dataCheck: Record<string, number>;
 }
 
@@ -102,9 +105,9 @@ function optionLabel(options: ReadonlyArray<{ key: string; label: string }>, key
   return options.find((o) => o.key === key)?.label ?? key;
 }
 
-/** Final segment → group rules, in the order they are applied (first rule for a segment wins). */
-export function effectiveRules(rules: readonly EntryRule[]): EntryRule[] {
-  return [...buildRuleMap(rules)].map(([segment, group]) => ({ segment, group }));
+/** The rules as exported. Values and group names are typed by hand, so emails are removed like in the notes. */
+function exportedRules(rules: readonly EntryRule[]): EntryRule[] {
+  return activeRules(rules).map((r) => ({ ...r, value: redactEmails(r.value), group: redactEmails(r.group) }));
 }
 
 export function buildDecisionsExport(input: DecisionsExportInput): Record<string, unknown> {
@@ -136,13 +139,19 @@ export function buildDecisionsExport(input: DecisionsExportInput): Record<string
     entryPageRules: {
       blankEntryPage: GROUP.none,
       noPath: GROUP.home,
-      segments: effectiveRules(input.rules),
+      rules: exportedRules(input.rules),
       anythingElse: GROUP.other,
-      matching: 'First path segment of the entry URL, lowercased, ignoring query strings and trailing slashes.',
+      matching:
+        'Lowest priority number runs first and the first match wins. exact_segment compares the first URL segment; ends_with compares the last URL segment. Case, trailing slashes, query strings and fragments are ignored.',
     },
     dataRules: {
       orderDate: 'M/D/YY H:MM, 24-hour, YY read as 20YY, no time zone applied',
       sessionStartTime: 'M/D/YY H:MM or YYYY-MM-DD HH:MM:SS',
+      lastTrackedEntryPage: ENTRY_PAGE_NOTE,
+      pagesInLatestSession: PAGES_NOTE,
+      timeSinceTrackedEntry:
+        'Order Date minus session_start_time for counted orders with both values. Over 1 day is more than 1,440 minutes and over 7 days is more than 10,080 minutes. Shares are of all counted orders in the group. The two times may be in different time zones.',
+      ordersWith2PlusTrackedVisits: `Counted orders whose first session_count value is above 1. A minimum: ${MINIMUM_NOTE} Shares are of all counted orders in the group.`,
       repeatedValues: 'Cells with values joined by "|" use the first part',
       money: 'Decimal strings summed in whole cents; blank refunds count as 0',
       netSales: 'Sum of Order Total minus sum of Refund Total on counted orders',
@@ -164,18 +173,20 @@ export function csvEscape(value: string): string {
 }
 
 /**
- * `entry_page_rules.csv` with columns `segment` and `entry_group`.
- * Three special rows describe blank entries, the homepage and the fallback.
+ * `entry_page_rules.csv` with columns `priority`, `match_type`, `value` and `entry_group`, in run
+ * order. Blank URLs, the homepage and the final fallback are fixed rules, so they are not in it.
  */
 export function rulesCsv(rules: readonly EntryRule[]): string {
-  const lines = ['segment,entry_group'];
-  lines.push(`${csvEscape('(blank entry page)')},${csvEscape(GROUP.none)}`);
-  lines.push(`${csvEscape('(no path)')},${csvEscape(GROUP.home)}`);
-  for (const r of effectiveRules(rules)) {
-    lines.push(`${csvEscape(normalizeSegment(r.segment))},${csvEscape(r.group)}`);
+  const lines = ['priority,match_type,value,entry_group'];
+  for (const r of exportedRules(rules)) {
+    lines.push([String(r.priority), r.matchType, r.value, r.group].map(csvEscape).join(','));
   }
-  lines.push(`${csvEscape('(anything else)')},${csvEscape(GROUP.other)}`);
   return `${lines.join('\r\n')}\r\n`;
+}
+
+/** Group names are typed by hand, so emails are removed like in the rules. */
+function withoutEmails<T extends { group: string }>(table: ByEntryGroup<T>): ByEntryGroup<T> {
+  return { ...table, rows: table.rows.map((r) => ({ ...r, group: redactEmails(r.group) })) };
 }
 
 /** Aggregate values for the decisions export: counts and sums, no order-level detail. */
@@ -184,15 +195,17 @@ export function buildExportAggregates(check: DataCheck, included: readonly Analy
   const ordersByStatus: Record<string, number> = {};
   for (const s of check.statuses) ordersByStatus[s.status || '(blank)'] = s.count;
   const ordersByEntryGroup: Record<string, number> = {};
-  for (const o of included) ordersByEntryGroup[o.entryGroup] = (ordersByEntryGroup[o.entryGroup] ?? 0) + 1;
+  for (const o of included) {
+    const group = redactEmails(o.entryGroup);
+    ordersByEntryGroup[group] = (ordersByEntryGroup[group] ?? 0) + 1;
+  }
   const dataCheck: Record<string, number> = {
     failedDateParses: check.failedDates,
     duplicateOrderIds: check.duplicates.ids,
     rowsWithDuplicateOrderIds: check.duplicates.rows,
     rowsWithRepeatedValues: check.rowsWithRepeated,
     rowsWithDifferingRepeatedValues: check.rowsWithDiffering,
-    ordersOver200Pages: check.over200Pages,
-    sessionGapOver1440MinutesTimeZoneNotConfirmed: check.sessionGapOverDay,
+    ordersOver200PagesInLatestSession: check.over200Pages,
     repeatOrdersWithSessionCount1: check.repeatWithSessionCount1,
     ordersWithoutEmail: check.noEmail,
     unreadableOrderTotals: check.unreadableTotals,
@@ -212,6 +225,8 @@ export function buildExportAggregates(check: DataCheck, included: readonly Analy
     firstOrders: fig.firstOrders,
     repeatOrders: fig.repeatOrders,
     ordersByEntryGroup,
+    timeSinceTrackedEntry: withoutEmails(check.timeSinceEntry),
+    ordersWith2PlusTrackedVisits: withoutEmails(check.trackedVisits),
     dataCheck,
   };
 }

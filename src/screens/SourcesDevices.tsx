@@ -7,6 +7,7 @@ import { formatCount, formatMedian, formatPercent } from '../lib/stats';
 import { useFormat } from '../format';
 import { Card, DataTable, HowCalculated, ShareBar, type Column } from '../components/ui';
 import { MonthColumnChart } from '../components/charts';
+import { PAGES_LABEL, PAGES_NOTE } from '../lib/labels';
 
 function useGroupColumns(firstHeader: string): Column<GroupRow>[] {
   const f = useFormat();
@@ -25,7 +26,7 @@ function useGroupColumns(firstHeader: string): Column<GroupRow>[] {
     },
     { header: 'Net sales', align: 'right', cell: (r) => f.money(r.netCents) },
     { header: 'Median order total', align: 'right', cell: (r) => f.money(r.medianTotalCents) },
-    { header: 'Median pages', align: 'right', cell: (r) => formatMedian(r.medianPages) },
+    { header: `Median ${PAGES_LABEL.toLowerCase()}`, align: 'right', cell: (r) => formatMedian(r.medianPages) },
   ];
 }
 
@@ -46,7 +47,7 @@ export function SourcesDevicesScreen({ orders }: { orders: readonly AnalyzedOrde
         <DataTable caption="Orders by source type" rows={bySourceType} rowKey={(r) => r.key} columns={typeCols} />
         <HowCalculated>
           Source type is the first value in the source type column. Net sales: order totals minus refunds. Medians use the
-          middle order (the average of the two middle orders when there is an even number) and leave blanks out.
+          middle order (the average of the two middle orders when there is an even number) and leave blanks out. {PAGES_NOTE}
         </HowCalculated>
       </Card>
 

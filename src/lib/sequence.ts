@@ -1,5 +1,5 @@
 import type { OrderRecord } from './parse';
-import { buildRuleMap, entryGroupFor, type EntryRule } from './entry';
+import { activeRules, entryGroupFor, type EntryRule } from './entry';
 
 export type CustomerType = 'first' | 'repeat';
 
@@ -69,11 +69,11 @@ export function analyzeOrders(
 ): AnalyzedOrder[] {
   const included = orders.filter((o) => includedStatuses.has(o.status));
   const { typeByRow, ordersPerCustomer } = assignOrderSequence(included);
-  const ruleMap = buildRuleMap(rules);
+  const active = activeRules(rules);
   return included.map((o) => ({
     ...o,
     customerType: typeByRow.get(o.row) ?? 'first',
-    entryGroup: entryGroupFor(o.entry, ruleMap),
+    entryGroup: entryGroupFor(o.entry, active),
     customerOrderCount: ordersPerCustomer.get(o.customerKey) ?? 1,
   }));
 }

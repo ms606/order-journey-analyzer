@@ -1,5 +1,6 @@
 import { canMatchByDetails, canMatchByNumber, type ItemsMapping, type MatchSummary } from '../lib/items';
 import type { ItemDateFormat } from '../lib/dates';
+import { ENTRY_PAGE_LABEL } from '../lib/labels';
 import { formatCount, formatPercent, share } from '../lib/stats';
 import { Card, HowCalculated, Select, StatTile } from '../components/ui';
 import { FileDrop } from '../components/Upload';
@@ -40,8 +41,7 @@ const DATE_FORMATS: ReadonlyArray<{ value: ItemDateFormat; label: string }> = [
 
 export function ItemsPanel({ items, loading, error, onFile, onMapping, onRemove, summary, build }: ItemsPanelProps) {
   const title = 'Optional: order items file';
-  const note =
-    'A second CSV from the shop’s own database, with the products in each order. It lets the Entry points screen check whether people bought the product page they landed on. It also stays on this computer.';
+  const note = `A second CSV from the shop’s own database, with the products in each order. It lets the ${ENTRY_PAGE_LABEL} screen check whether people bought the product on that page. It also stays on this computer.`;
 
   if (!items) {
     return (
@@ -131,7 +131,7 @@ export function ItemsPanel({ items, loading, error, onFile, onMapping, onRemove,
           </p>
           {!m.product ? (
             <div className="alert alert-info" role="status">
-              Choose the product name or slug column to compare products on the Entry points screen.
+              Choose the product name or slug column to compare products on the {ENTRY_PAGE_LABEL} screen.
             </div>
           ) : null}
         </>

@@ -3,9 +3,9 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { COL } from './columns';
-import { DEFAULT_ENTRY_RULES } from './entry';
+import { DEFAULT_ENTRY_RULES, GROUP } from './entry';
 import { parseCsvText, parseOrdersCsv } from './parse';
-import { buildDataCheck } from './quality';
+import { buildDataCheck, OVER_1_DAY_MINUTES, OVER_7_DAYS_MINUTES, sessionGapMinutes } from './quality';
 import { analyzeOrders } from './sequence';
 import { defaultIncludedStatuses } from './status';
 import { emailKey } from './privacy';
@@ -75,9 +75,43 @@ describe('synthetic fixture', () => {
     expect(orders.some((o) => o.refundCents > 0 && o.totalCents !== null && o.refundCents < o.totalCents)).toBe(true);
   });
 
-  it('has an order over 200 pages and a session gap over one day', () => {
+  it('has an order over 200 pages, and gaps over 1 day and over 7 days', () => {
     expect(check.over200Pages).toBeGreaterThanOrEqual(1);
-    expect(check.sessionGapOverDay).toBeGreaterThanOrEqual(1);
+    expect(check.timeSinceEntry.total.over1Day).toBeGreaterThanOrEqual(2);
+    expect(check.timeSinceEntry.total.over7Days).toBeGreaterThanOrEqual(1);
+  });
+
+  it('has gaps of exactly 1 day and exactly 7 days, which do not count as over', () => {
+    const gapOf = (email: string) => {
+      const order = analyzed.find((o) => o.customerKey === emailKey(email));
+      if (!order) throw new Error(`no fixture order for ${email}`);
+      return sessionGapMinutes(order);
+    };
+    expect(gapOf('one.day@example.com')).toBe(OVER_1_DAY_MINUTES);
+    expect(gapOf('seven.days@example.com')).toBe(OVER_7_DAYS_MINUTES);
+    expect(gapOf('over.seven.days@example.com')).toBeGreaterThan(OVER_7_DAYS_MINUTES);
+  });
+
+  it('has a blank session time and a session count of 1|2|2', () => {
+    const blank = analyzed.find((o) => o.customerKey === emailKey('blank.session.time@example.com'));
+    expect(blank?.sessionStartSec).toBeNull();
+    expect(check.timeSinceEntry.total.withEntryTime).toBeLessThan(check.timeSinceEntry.total.orders);
+    expect(raw.some((r) => r[COL.sessionCount] === '1|2|2')).toBe(true);
+    expect(analyzed.find((o) => o.customerKey === emailKey('first.count.one@example.com'))?.sessionCount).toBe(1);
+  });
+
+  it('sorts -meaning pages by the rule order', () => {
+    const groupFor = (email: string) => analyzed.find((o) => o.customerKey === emailKey(email))?.entryGroup;
+    expect(groupFor('product.meaning@example.com')).toBe(GROUP.product);
+    expect(groupFor('shop.meaning@example.com')).toBe(GROUP.shop);
+    expect(groupFor('mixed.case.meaning@example.com')).toBe(GROUP.meaning);
+  });
+
+  it('has a row in both new tables for every group with orders', () => {
+    const groups = new Set(analyzed.map((o) => o.entryGroup));
+    expect(new Set(check.timeSinceEntry.rows.map((r) => r.group))).toEqual(groups);
+    expect(new Set(check.trackedVisits.rows.map((r) => r.group))).toEqual(groups);
+    expect(check.trackedVisits.total.orders).toBe(analyzed.length);
   });
 
   it('includes one unknown status, one unreadable date and one duplicated ID for the Data check', () => {

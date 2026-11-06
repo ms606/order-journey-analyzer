@@ -234,7 +234,7 @@ export const PRODUCT_LANDING_LABEL: Readonly<Record<ProductLanding, string>> = {
 };
 
 /**
- * For orders that started on `/product/<slug>/`: did they buy that product?
+ * For orders whose last tracked entry page is `/product/<slug>/`: did they buy that product?
  * Returns null for orders that did not start on a product page.
  */
 export function productLanding(entry: EntryInfo, match: OrderMatch | undefined): ProductLanding | null {

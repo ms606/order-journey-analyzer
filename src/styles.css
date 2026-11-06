@@ -478,6 +478,9 @@ input[type='radio'] {
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 12px;
 }
+.filters-grid .field {
+  justify-content: flex-end;
+}
 .filters-grid select,
 .filters-grid input {
   width: 100%;
@@ -727,7 +730,10 @@ thead th {
   font-weight: 700;
   color: var(--text-2);
   border-bottom: 2px solid var(--border);
-  white-space: nowrap;
+  vertical-align: bottom;
+}
+thead th.num {
+  white-space: normal;
 }
 tbody tr:hover {
   background: var(--surface-2);
@@ -736,6 +742,11 @@ tbody tr:hover {
   text-align: right;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+.has-total-row tbody tr:last-child td {
+  font-weight: 600;
+  border-top: 2px solid var(--border);
+  border-bottom: 0;
 }
 td.path {
   overflow-wrap: anywhere;
@@ -776,6 +787,12 @@ td.path {
 .rules-table select {
   width: 100%;
   max-width: 300px;
+}
+.rules-table input.priority-input {
+  width: 4.5em;
+}
+.rules-table select.match-select {
+  min-width: 165px;
 }
 .rules-table tfoot td {
   border-bottom: 0;
