@@ -8,9 +8,8 @@ It is for analysis only. It does not connect to a database, website or API. The 
 
 **Hosted copy:** https://ms606.github.io/order-journey-analyzer/ is rebuilt from `main` on every push by
 `.github/workflows/deploy.yml`. It is the same single file with the same Content Security Policy, so a CSV you open there
-is read in your browser and never uploaded. For now the hosted copy leaves out the **Sources and devices** and
-**Decisions** tabs (so it has no downloads); the workflow sets `VITE_HIDDEN_TABS=sources,decisions`, and removing that
-line brings them back. Local builds always have every tab.
+is read in your browser and never uploaded. It has every tab, including both downloads. To leave tabs out of a build, set
+`VITE_HIDDEN_TABS` to their ids, for example `VITE_HIDDEN_TABS=sources,decisions`.
 
 ## Privacy
 
