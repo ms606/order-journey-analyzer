@@ -77,9 +77,11 @@ server is needed.
    the filters at the top: date range, source type, device type, device, last tracked entry page group and customer type.
 4. On **Last tracked entry page**, edit the rules. Every chart updates immediately. Move common pages out of "Articles or
    other" with one click.
-5. On **Meaning pages**, see the orders whose last tracked entry page is in the Meaning pages group: their share of all
-   orders and net sales, first and repeat orders, Time since tracked entry, and the top 20 meaning pages by net sales.
-   Set the date range to match a traffic report before comparing the two.
+5. On **Meaning pages**, compare the orders whose last tracked entry page is in the Meaning pages group with the other
+   orders: share of all orders and net sales, average net sale per order, first and repeat orders, and Time since tracked
+   entry in bands that add up. The top 20 meaning pages can be sorted by net sales or by orders, and the rest are added
+   together in one row. The screen shows the Order Dates in view; set the date range to match a traffic report before
+   comparing the two.
 6. On **Decisions**, record what was agreed, then download `journey-decisions.json` and `entry_page_rules.csv`.
    Decisions are not saved, so download them before closing the page.
 
@@ -141,12 +143,24 @@ All calculations are pure functions in `src/lib`, separate from the UI, and cove
   tracking only sees the same browser.
 - Filters do not affect these two tables, like the rest of Data check.
 - **Meaning pages** screen: counted, filtered orders in the Meaning pages group, so it follows the rules and the filters.
-  Pages ending in `-meaning` that a rule puts in another group, such as `/shop/amethyst-meaning/`, are not on it. Shares
-  of orders and net sales are of all orders shown. First and repeat orders use the order sequence above. Over 1 day and
-  over 7 days use the same limits as Time since tracked entry, with all meaning page orders as the base, and each figure
-  has the same figure for all orders shown beside it. The top pages table lists up to 20 pages by net sales, then by
-  orders, then by path, and says how many meaning pages have orders. Sales count toward the last tracked entry page,
-  which can come from an earlier visit, so a page's sales are not proof that the page made the sale.
+  Pages ending in `-meaning` that a rule puts in another group, such as `/shop/amethyst-meaning/`, are not on it.
+  - Comparisons are with the **other orders** shown (all orders shown minus the meaning page orders), so the meaning page
+    orders are never part of what they are compared with. The shares of orders and net sales are of all orders shown.
+  - Average net sale per order is net sales divided by orders. An unreadable Order Total counts as 0, as in net sales.
+  - First and repeat orders use the order sequence above. The "How this is calculated" text gives the number of these
+    orders without an email, because each one counts as a first order in file. New vs repeat gives the same count for
+    all orders shown.
+  - Time since tracked entry is split into bands that do not overlap, so each column adds up to its total: within 1 day
+    (up to 1,440 minutes), more than 1 day up to 7 days (up to 10,080 minutes), over 7 days, tracked entry time after the
+    Order Date, and no tracked entry time. With no filters, the second and third bands match "Over 1 day" on Data check
+    and the third matches "Over 7 days".
+  - The top pages table lists up to 20 pages by net sales then orders, or by orders then net sales. Pages after the top 20
+    are added together in one "Other N pages" row, and a last row gives the whole group. Each row shows its share of
+    meaning page orders and net sales and its average per order.
+  - If the last tracked entry page group filter leaves nothing to compare, the screen says so and offers to clear it. If
+    the customer type filter is on, the first and repeat split is not shown.
+  - Sales count toward the last tracked entry page, which can come from an earlier visit, so a page's sales are not proof
+    that the page made the sale.
 - `session_count` is not used to find repeat customers. Data check reports how many repeat orders show a session count
   of 1.
 

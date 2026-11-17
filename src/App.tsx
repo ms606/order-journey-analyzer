@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { DEFAULT_ENTRY_RULES, GROUP, GROUP_ORDER, sortGroups, type EntryRule } from './lib/entry';
-import { applyFilters, EMPTY_FILTERS, type Filters } from './lib/filters';
+import { applyFilters, clearFilter, EMPTY_FILTERS, type Filters } from './lib/filters';
 import { ENTRY_PAGE_LABEL } from './lib/labels';
 import { buildExportAggregates, EMPTY_DECISIONS, type Decisions } from './lib/exports';
 import {
@@ -258,7 +258,9 @@ export function App() {
         />
       );
     } else if (tab === 'meaning') {
-      screen = <MeaningPagesScreen orders={filtered} />;
+      screen = (
+        <MeaningPagesScreen orders={filtered} filters={filters} onClearFilter={(key) => setFilters((prev) => clearFilter(prev, key))} />
+      );
     } else if (tab === 'newrepeat') {
       screen = <NewVsRepeatScreen orders={filtered} groups={groups} />;
     } else {

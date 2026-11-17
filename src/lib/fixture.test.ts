@@ -11,6 +11,7 @@ import { defaultIncludedStatuses } from './status';
 import { emailKey } from './privacy';
 import { buildItemOrders, matchOrders, summarizeMatches, EMPTY_ITEMS_MAPPING } from './items';
 import { meaningPagesSummary } from './meaning';
+import { netCents } from './aggregate';
 
 const text = readFileSync(resolve(__dirname, '../../fixtures/synthetic-orders.csv'), 'utf8');
 const raw = parseCsvText(text).rows;
@@ -156,8 +157,16 @@ describe('Meaning pages screen on the synthetic fixture', () => {
   it('agrees with the Meaning pages row of Time since tracked entry on Data check', () => {
     const row = check.timeSinceEntry.rows.find((r) => r.group === GROUP.meaning);
     expect(row).toBeDefined();
-    expect(s.meaning.over1Day).toBe(row?.over1Day);
-    expect(s.meaning.over7Days).toBe(row?.over7Days);
+    const b = s.meaning.bands;
+    expect(b.oneTo7Days + b.over7Days).toBe(row?.over1Day);
+    expect(b.over7Days).toBe(row?.over7Days);
+    expect(b.within1Day + b.oneTo7Days + b.over7Days + b.afterOrder).toBe(row?.withEntryTime);
+    expect(b.within1Day + b.oneTo7Days + b.over7Days + b.afterOrder + b.noTime).toBe(group.length);
+  });
+
+  it('compares with every order outside the group', () => {
+    expect(s.other.orders).toBe(analyzed.length - group.length);
+    expect(s.meaning.netCents + s.other.netCents).toBe(netCents(analyzed));
   });
 
   it('leaves out product and shop pages that end in -meaning', () => {

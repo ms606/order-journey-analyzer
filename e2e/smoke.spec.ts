@@ -8,7 +8,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { expect, test, type Page } from '@playwright/test';
 import Papa from 'papaparse';
 import { PRODUCTION_CSP } from '../config/csp';
-import { ENTRY_GROUP_LABEL, ENTRY_PAGE_LABEL, ENTRY_PAGE_NOTE, MEANING_SALES_NOTE, PAGES_LABEL, PAGES_NOTE } from '../src/lib/labels';
+import { ENTRY_GROUP_LABEL, ENTRY_PAGE_LABEL, ENTRY_PAGE_NOTE, MEANING_SALES_NOTE, PAGES_LABEL, PAGES_NOTE, TIME_SINCE_ENTRY_LABEL } from '../src/lib/labels';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const distFile = resolve(root, 'dist/index.html');
@@ -187,9 +187,17 @@ test('works from file:// with the synthetic fixture: every tab, no network, no e
     if (name === 'Meaning pages') {
       // Same figures as the synthetic fixture's Meaning pages group, with no filters.
       await expect(tileValue(page, 'Orders')).toHaveText('83');
-      await expect(panel.getByRole('heading', { name: 'Top meaning pages by net sales' })).toBeVisible();
-      await expect(panel.locator('tbody tr').first()).toContainText('/amethyst-meaning');
-      await expect(panel.locator('tbody tr')).toHaveCount(5);
+      await expect(tileValue(page, 'Average net sale per order')).toHaveText('46.73');
+      await expect(panel.locator('.note').filter({ hasText: /Order dates in view: .+ to .+\./ })).toBeVisible();
+      const bands = panel.getByRole('region', { name: TIME_SINCE_ENTRY_LABEL });
+      await expect(bands.locator('tbody tr')).toHaveCount(6);
+      await expect(bands.locator('tbody tr').last()).toContainText('83');
+      const top = panel.getByRole('region', { name: 'Top meaning pages by net sales' });
+      await expect(top.locator('tbody tr').first()).toContainText('/amethyst-meaning');
+      // 5 pages and the total row.
+      await expect(top.locator('tbody tr')).toHaveCount(6);
+      await expect(top.locator('tbody tr').last()).toContainText('All meaning pages');
+      await expect(top.locator('tbody tr').last()).toContainText('3,878.70');
       await expect(panel.getByText('All 5 meaning pages with orders.')).toBeVisible();
       await expect(panel.locator('.note').filter({ hasText: MEANING_SALES_NOTE })).toBeVisible();
     }
@@ -218,6 +226,30 @@ test('works from file:// with the synthetic fixture: every tab, no network, no e
   await page.getByLabel(ENTRY_GROUP_LABEL, { exact: true }).selectOption('Meaning pages');
   await expect(page.getByRole('button', { name: `Remove filter ${ENTRY_GROUP_LABEL}: Meaning pages` })).toBeVisible();
   await page.getByRole('button', { name: 'Reset filters' }).click();
+
+  // Meaning pages: the sort can change, and filters that leave nothing to compare say so.
+  await page.getByRole('tab', { name: 'Meaning pages' }).click();
+  const meaning = page.getByRole('tabpanel');
+  const clearGroup = meaning.getByRole('button', { name: `Clear the ${ENTRY_GROUP_LABEL.toLowerCase()} filter` });
+  await meaning.getByLabel('Sort by').selectOption('orders');
+  await expect(meaning.getByRole('heading', { name: 'Top meaning pages by orders' })).toBeVisible();
+  await meaning.getByLabel('Sort by').selectOption('net');
+  await expect(meaning.getByRole('heading', { name: 'Top meaning pages by net sales' })).toBeVisible();
+  await page.getByLabel(ENTRY_GROUP_LABEL, { exact: true }).selectOption('Meaning pages');
+  await expect(meaning.getByText(/so there are no other orders to compare with/)).toBeVisible();
+  await expect(meaning.getByText('Other orders: none in view').first()).toBeVisible();
+  await clearGroup.click();
+  await expect(page.getByRole('button', { name: `Remove filter ${ENTRY_GROUP_LABEL}: Meaning pages` })).toHaveCount(0);
+  await expect(meaning.getByText(/so there are no other orders to compare with/)).toHaveCount(0);
+  await page.getByLabel(ENTRY_GROUP_LABEL, { exact: true }).selectOption('Shop');
+  await expect(meaning.getByText('No meaning page orders')).toBeVisible();
+  await expect(meaning.getByText(/filter is set to “Shop”/)).toBeVisible();
+  await clearGroup.click();
+  await expect(tileValue(page, 'Orders')).toHaveText('83');
+  await page.getByLabel('Customer type').selectOption('first');
+  await expect(tileValue(page, 'First and repeat orders')).toHaveText('Not compared');
+  await page.getByRole('button', { name: 'Reset filters' }).click();
+  await expect(tileValue(page, 'First and repeat orders')).toContainText('Repeat');
 
   // Editing entry rules updates the charts straight away.
   await page.getByRole('tab', { name: ENTRY_PAGE_LABEL }).click();

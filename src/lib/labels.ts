@@ -1,3 +1,5 @@
+import { formatCount } from './stats';
+
 /**
  * Labels and notes for the WooCommerce tracking fields, shared by the screens and the exports.
  *
@@ -23,7 +25,12 @@ export const TRACKED_VISITS_LABEL = 'Tracked visits';
 export const TWO_PLUS_VISITS_LABEL = 'Orders with 2+ tracked visits';
 export const MINIMUM_LABEL = 'Minimum';
 export const MEANING_SALES_NOTE =
-  'Sales count toward the last tracked entry page, which can come from an earlier visit. So this shows the page saved before each order, not the page that made the sale. Pages with 1 or 2 orders can move a lot.';
+  'Sales count toward the last tracked entry page, which can come from an earlier visit. So this shows the page saved before each order, not the page that made the sale. Pages with fewer than 5 orders can move a lot, and so can their average.';
+
+/** For "How this is calculated" next to a first and repeat split. */
+export function noEmailNote(subject: string, count: number): string {
+  return `${subject} without an email: ${formatCount(count)}. Each one counts as a first order in file, because it can't be linked to other orders.`;
+}
 
 export const MINIMUM_NOTE =
   "Tracking only sees the same browser. It can't connect different devices, different browsers or cleared cookies, so the real number may be higher.";

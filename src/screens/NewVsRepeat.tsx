@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { firstVsRepeatByGroup, pageBandsByType, summaryByCustomerType } from '../lib/aggregate';
-import { ENTRY_GROUP_LABEL, ENTRY_PAGE_LABEL, ENTRY_PAGE_NOTE, PAGES_LABEL, PAGES_NOTE } from '../lib/labels';
+import { ENTRY_GROUP_LABEL, ENTRY_PAGE_LABEL, ENTRY_PAGE_NOTE, noEmailNote, PAGES_LABEL, PAGES_NOTE } from '../lib/labels';
 import type { AnalyzedOrder } from '../lib/sequence';
 import { formatCount, formatMedian, formatPercent, plural } from '../lib/stats';
 import { useFormat } from '../format';
@@ -20,6 +20,7 @@ export function NewVsRepeatScreen({ orders, groups }: { orders: readonly Analyze
     return rows.filter((r) => r.first + r.repeat > 0);
   }, [orders, groups]);
   const bands = useMemo(() => pageBandsByType(orders), [orders]);
+  const noEmail = useMemo(() => orders.filter((o) => !o.hasEmail).length, [orders]);
 
   return (
     <div className="screen">
@@ -32,7 +33,7 @@ export function NewVsRepeatScreen({ orders, groups }: { orders: readonly Analyze
           label="First orders"
           value={formatCount(types.first.orders)}
           sub={`Median order total ${f.money(types.first.medianTotalCents)}`}
-          how="Each email’s earliest counted order, sorted by Order Date and then order number."
+          how={`Each email’s earliest counted order, sorted by Order Date and then order number. ${noEmailNote('Orders in view', noEmail)}`}
         />
         <StatTile
           label="Repeat orders"

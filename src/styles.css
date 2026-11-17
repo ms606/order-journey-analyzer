@@ -783,6 +783,10 @@ td.path {
   overflow-wrap: anywhere;
   word-break: break-word;
 }
+/* A table with many columns keeps a readable width and scrolls sideways inside its box on small screens. */
+.table-wide table {
+  min-width: 640px;
+}
 .share-cell {
   display: inline-flex;
   align-items: center;
