@@ -22,5 +22,8 @@ export const TIME_SINCE_ENTRY_LABEL = 'Time since tracked entry';
 export const TRACKED_VISITS_LABEL = 'Tracked visits';
 export const TWO_PLUS_VISITS_LABEL = 'Orders with 2+ tracked visits';
 export const MINIMUM_LABEL = 'Minimum';
+export const MEANING_SALES_NOTE =
+  'Sales count toward the last tracked entry page, which can come from an earlier visit. So this shows the page saved before each order, not the page that made the sale. Pages with 1 or 2 orders can move a lot.';
+
 export const MINIMUM_NOTE =
   "Tracking only sees the same browser. It can't connect different devices, different browsers or cleared cookies, so the real number may be higher.";

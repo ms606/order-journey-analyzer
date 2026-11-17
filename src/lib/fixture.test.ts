@@ -10,6 +10,7 @@ import { analyzeOrders } from './sequence';
 import { defaultIncludedStatuses } from './status';
 import { emailKey } from './privacy';
 import { buildItemOrders, matchOrders, summarizeMatches, EMPTY_ITEMS_MAPPING } from './items';
+import { meaningPagesSummary } from './meaning';
 
 const text = readFileSync(resolve(__dirname, '../../fixtures/synthetic-orders.csv'), 'utf8');
 const raw = parseCsvText(text).rows;
@@ -139,5 +140,27 @@ describe('synthetic fixture', () => {
     expect(s.matchedByDetails).toBeGreaterThan(0);
     expect(s.unmatched).toBeGreaterThan(0);
     expect(s.ambiguous).toBeGreaterThanOrEqual(2);
+  });
+});
+
+describe('Meaning pages screen on the synthetic fixture', () => {
+  const s = meaningPagesSummary(analyzed);
+  const group = analyzed.filter((o) => o.entryGroup === GROUP.meaning);
+
+  it('counts the same orders as the Meaning pages group', () => {
+    expect(s.meaning.orders).toBe(group.length);
+    expect(s.meaning.first + s.meaning.repeat).toBe(group.length);
+    expect(s.pages.reduce((n, p) => n + p.orders, 0)).toBe(group.length);
+  });
+
+  it('agrees with the Meaning pages row of Time since tracked entry on Data check', () => {
+    const row = check.timeSinceEntry.rows.find((r) => r.group === GROUP.meaning);
+    expect(row).toBeDefined();
+    expect(s.meaning.over1Day).toBe(row?.over1Day);
+    expect(s.meaning.over7Days).toBe(row?.over7Days);
+  });
+
+  it('leaves out product and shop pages that end in -meaning', () => {
+    expect(s.pages.every((p) => !p.path.startsWith('/product/') && !p.path.startsWith('/shop/'))).toBe(true);
   });
 });

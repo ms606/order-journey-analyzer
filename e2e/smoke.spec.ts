@@ -8,7 +8,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { expect, test, type Page } from '@playwright/test';
 import Papa from 'papaparse';
 import { PRODUCTION_CSP } from '../config/csp';
-import { ENTRY_GROUP_LABEL, ENTRY_PAGE_LABEL, ENTRY_PAGE_NOTE, PAGES_LABEL, PAGES_NOTE } from '../src/lib/labels';
+import { ENTRY_GROUP_LABEL, ENTRY_PAGE_LABEL, ENTRY_PAGE_NOTE, MEANING_SALES_NOTE, PAGES_LABEL, PAGES_NOTE } from '../src/lib/labels';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const distFile = resolve(root, 'dist/index.html');
@@ -16,7 +16,7 @@ const ordersFixture = resolve(root, 'fixtures/synthetic-orders.csv');
 const itemsFixture = resolve(root, 'fixtures/synthetic-order-items.csv');
 
 const EMAIL_RE = /[A-Z0-9._%+-]+@[A-Z0-9-]+(?:\.[A-Z0-9-]+)*\.[A-Z]{2,}/i;
-const TABS = ['Data check', 'Overview', ENTRY_PAGE_LABEL, 'New vs repeat', 'Sources and devices', 'Decisions'] as const;
+const TABS = ['Data check', 'Overview', ENTRY_PAGE_LABEL, 'Meaning pages', 'New vs repeat', 'Sources and devices', 'Decisions'] as const;
 /** Old labels. Case-sensitive, because "No entry page" and "last tracked entry page" are correct. */
 const RETIRED_LABELS = /Entry points?|entry points?|Entry groups?|entry groups?|Entry pages?|Pages viewed|pages viewed|Page count|page count|Visit count|visit count|Visit start|visit start/;
 /** Any "entry page" that isn't the new label or the "No entry page" group. Ignores case. */
@@ -183,6 +183,15 @@ test('works from file:// with the synthetic fixture: every tab, no network, no e
       await expect(panel.locator('.note').filter({ hasText: PAGES_NOTE })).toBeVisible();
       await expect(panel.locator('.recharts-cartesian-axis-tick-value').getByText('Meaning pages', { exact: true }).first()).toBeVisible();
       await expect(panel.getByText('Landed on a product they bought').first()).toBeVisible();
+    }
+    if (name === 'Meaning pages') {
+      // Same figures as the synthetic fixture's Meaning pages group, with no filters.
+      await expect(tileValue(page, 'Orders')).toHaveText('83');
+      await expect(panel.getByRole('heading', { name: 'Top meaning pages by net sales' })).toBeVisible();
+      await expect(panel.locator('tbody tr').first()).toContainText('/amethyst-meaning');
+      await expect(panel.locator('tbody tr')).toHaveCount(5);
+      await expect(panel.getByText('All 5 meaning pages with orders.')).toBeVisible();
+      await expect(panel.locator('.note').filter({ hasText: MEANING_SALES_NOTE })).toBeVisible();
     }
     if (name === 'New vs repeat') {
       await expect(panel.getByRole('heading', { name: `${ENTRY_PAGE_LABEL} for first and repeat orders` })).toBeVisible();

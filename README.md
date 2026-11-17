@@ -73,11 +73,14 @@ server is needed.
 2. **Data check** ignores the filters. It uses every row in the file, unless a card says it uses the counted statuses.
    Choose which order statuses count. Failed and cancelled are left out by default. Review blanks, repeated values, unusual
    rows, Time since tracked entry and Orders with 2+ tracked visits. Optionally add an order items file and map its columns.
-3. **Overview**, **Last tracked entry page**, **New vs repeat** and **Sources and devices** respond to the filters at the
-   top: date range, source type, device type, device, last tracked entry page group and customer type.
+3. **Overview**, **Last tracked entry page**, **Meaning pages**, **New vs repeat** and **Sources and devices** respond to
+   the filters at the top: date range, source type, device type, device, last tracked entry page group and customer type.
 4. On **Last tracked entry page**, edit the rules. Every chart updates immediately. Move common pages out of "Articles or
    other" with one click.
-5. On **Decisions**, record what was agreed, then download `journey-decisions.json` and `entry_page_rules.csv`.
+5. On **Meaning pages**, see the orders whose last tracked entry page is in the Meaning pages group: their share of all
+   orders and net sales, first and repeat orders, Time since tracked entry, and the top 20 meaning pages by net sales.
+   Set the date range to match a traffic report before comparing the two.
+6. On **Decisions**, record what was agreed, then download `journey-decisions.json` and `entry_page_rules.csv`.
    Decisions are not saved, so download them before closing the page.
 
 An optional **Currency label** at the top (for example `EUR`) is added after amounts. Without it, amounts have no symbol.
@@ -137,6 +140,13 @@ All calculations are pure functions in `src/lib`, separate from the UI, and cove
   counts as 1. Shown by group as a count and a share of all counted orders in that group. It is labelled "Minimum", because
   tracking only sees the same browser.
 - Filters do not affect these two tables, like the rest of Data check.
+- **Meaning pages** screen: counted, filtered orders in the Meaning pages group, so it follows the rules and the filters.
+  Pages ending in `-meaning` that a rule puts in another group, such as `/shop/amethyst-meaning/`, are not on it. Shares
+  of orders and net sales are of all orders shown. First and repeat orders use the order sequence above. Over 1 day and
+  over 7 days use the same limits as Time since tracked entry, with all meaning page orders as the base, and each figure
+  has the same figure for all orders shown beside it. The top pages table lists up to 20 pages by net sales, then by
+  orders, then by path, and says how many meaning pages have orders. Sales count toward the last tracked entry page,
+  which can come from an earlier visit, so a page's sales are not proof that the page made the sale.
 - `session_count` is not used to find repeat customers. Data check reports how many repeat orders show a session count
   of 1.
 

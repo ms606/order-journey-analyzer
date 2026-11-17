@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
-import { DEFAULT_ENTRY_RULES, GROUP_ORDER, sortGroups, type EntryRule } from './lib/entry';
+import { DEFAULT_ENTRY_RULES, GROUP, GROUP_ORDER, sortGroups, type EntryRule } from './lib/entry';
 import { applyFilters, EMPTY_FILTERS, type Filters } from './lib/filters';
 import { ENTRY_PAGE_LABEL } from './lib/labels';
 import { buildExportAggregates, EMPTY_DECISIONS, type Decisions } from './lib/exports';
@@ -27,16 +27,18 @@ import { DataCheckScreen } from './screens/DataCheck';
 import { DecisionsScreen } from './screens/Decisions';
 import { EntryPointsScreen } from './screens/EntryPoints';
 import type { ItemsState } from './screens/ItemsPanel';
+import { MeaningPagesScreen } from './screens/MeaningPages';
 import { NewVsRepeatScreen } from './screens/NewVsRepeat';
 import { OverviewScreen } from './screens/Overview';
 import { SourcesDevicesScreen } from './screens/SourcesDevices';
 
-type TabId = 'check' | 'overview' | 'entry' | 'newrepeat' | 'sources' | 'decisions';
+type TabId = 'check' | 'overview' | 'entry' | 'meaning' | 'newrepeat' | 'sources' | 'decisions';
 
 const ALL_TABS: readonly TabDef<TabId>[] = [
   { id: 'check', label: 'Data check' },
   { id: 'overview', label: 'Overview' },
   { id: 'entry', label: ENTRY_PAGE_LABEL },
+  { id: 'meaning', label: GROUP.meaning },
   { id: 'newrepeat', label: 'New vs repeat' },
   { id: 'sources', label: 'Sources and devices' },
   { id: 'decisions', label: 'Decisions' },
@@ -50,7 +52,7 @@ const HIDDEN_TABS = new Set((import.meta.env.VITE_HIDDEN_TABS ?? '').split(',').
 const TABS = ALL_TABS.filter((t) => t.id === 'check' || !HIDDEN_TABS.has(t.id));
 
 /** Tabs where the global filters apply. */
-const FILTERED_TABS: ReadonlySet<TabId> = new Set(['overview', 'entry', 'newrepeat', 'sources']);
+const FILTERED_TABS: ReadonlySet<TabId> = new Set(['overview', 'entry', 'meaning', 'newrepeat', 'sources']);
 
 interface LoadedData {
   fileName: string;
@@ -255,6 +257,8 @@ export function App() {
           productLandingStatus={productLandingStatus}
         />
       );
+    } else if (tab === 'meaning') {
+      screen = <MeaningPagesScreen orders={filtered} />;
     } else if (tab === 'newrepeat') {
       screen = <NewVsRepeatScreen orders={filtered} groups={groups} />;
     } else {
